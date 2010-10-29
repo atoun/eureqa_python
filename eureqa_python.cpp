@@ -1,22 +1,20 @@
 #include <boost/python.hpp>
-
-#include <eureqa/eureqa.h>
-
 #include <string>
 
-
-
-
-
-std::string test(std::string text)
+class DummyClass
 {
-    return "Hello " + text;
-}
+	public:
+		std::string Test(std::string text)
+		{
+		    return "Hello " + text;
+		}
+};
 
 BOOST_PYTHON_MODULE(eureqa_python)
 {
-    using namespace boost::python;
-    def("test", test);
+	boost::python::class_<DummyClass>("DummyClass")
+	.def("test", &DummyClass::Test)
+	;
 }
 
 

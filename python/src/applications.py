@@ -1,4 +1,5 @@
 import eureqa_python
 
 
-print eureqa_python.test('world')
+dc = eureqa_python.DummyClass()
+print dc.test('World')

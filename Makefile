@@ -9,7 +9,7 @@ EUREQA_INC	=	~/Portable/eureqa
 
 TARGET		=	eureqa_python.so
 CFLAGS		=	-I ${BOOST_INC} -I ${PYTHON_INC} -I ${EUREQA_INC}
-LFLAGS		=	-Wl,-rpath ${BOOST_LIB} -L ${BOOST_LIB} -lboost_python -shared 
+LFLAGS		=	-Wl,-rpath ${BOOST_LIB} -L ${BOOST_LIB} -lboost_system -lboost_serialization -lboost_date_time -lboost_thread -lboost_python -shared 
 
 
 copy : ${TARGET}

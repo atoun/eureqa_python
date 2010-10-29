@@ -5,15 +5,6 @@
 #include <string>
 
 
-/**
- * Python's wrapper for connection class
- **/
-class _connection
-{
-    
-};
-
-
 
 
 

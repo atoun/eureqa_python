@@ -11,8 +11,11 @@ TARGET		=	eureqa_python.so
 CFLAGS		=	-I ${BOOST_INC} -I ${PYTHON_INC} -I ${EUREQA_INC}
 LFLAGS		=	-Wl,-rpath ${BOOST_LIB} -L ${BOOST_LIB} -lboost_python -shared 
 
-#${TARGET} : ${TARGET:.so=.cpp}
-eureqa_python.so : eureqa_python.cpp
+
+copy : ${TARGET}
+		$(shell cp -u ${TARGET} python/src)
+
+${TARGET} : ${TARGET:.so=.cpp}
 	${CC} $< ${CFLAGS} ${LFLAGS} -o $@
 
 
@@ -20,4 +23,5 @@ eureqa_python.so : eureqa_python.cpp
 
 clean :	
 	rm -f *.so
-all : ${TARGET}
+	
+all : copy

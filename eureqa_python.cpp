@@ -2,7 +2,14 @@
 #include <boost/scoped_ptr.hpp>
 #include <string>
 #include <eureqa/connection.h>
+
+
 #include "Connection.h"
+#include "DataSet.h"
+#include "SearchOptions.h"
+#include "SearchProgress.h"
+#include "ServerInfo.h"
+#include "SolutionFrontier.h"
 
 class DummyClass
 {

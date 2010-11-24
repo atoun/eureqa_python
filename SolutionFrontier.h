@@ -1,5 +1,5 @@
 /*
- * SolutionFrontier.h
+ * TODO: description
  *
  *  Created on: Nov 21, 2010
  *      Author: MF

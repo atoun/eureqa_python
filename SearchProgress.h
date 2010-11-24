@@ -11,6 +11,8 @@
 
 #include <eureqa/search_progress.h>
 
+#include "SolutionFrontier.h"
+
 
 class SearchProgress
 {
@@ -20,16 +22,26 @@ class SearchProgress
 
 	public:
 
-//		TODO: solution_info solution_; // a solution recently added server's solution frontier
-//		TODO: float generations_; // total generations completed
-//		TODO: float generations_per_sec_; // generations speed
-//		TODO: float evaluations_; // total times any equation was evaluated
-//		TODO: float evaluations_per_sec_; // evaluation speed
-//		TODO: int total_population_size_; // total number of individuals in the current population
-//
+		/**
+		 * Since those variables will be visible directly from Python, they are written with lowercase_separated_by_underscores
+		 */
+		SolutionInfo solution;
+		float& generations;
+		float& generations_per_sec;
+		float& evaluations;
+		float& evaluations_per_sec;
+		int& total_population_size;
+
 
 		// Wrapper for default constructor
-		SearchProgress() {}
+		SearchProgress() :	solution(instance.solution_),
+							generations(instance.generations_),
+							generations_per_sec(instance.generations_per_sec_),
+							evaluations(instance.evaluations_),
+							evaluations_per_sec(instance.evaluations_per_sec_),
+							total_population_size(instance.total_population_size_)
+							{}
+
 
 		// Wrapper for function testing if fields are entered and in range
 		bool IsValid() const {return instance.is_valid();}

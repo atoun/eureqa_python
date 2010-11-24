@@ -15,18 +15,25 @@
 class ServerInfo
 {
 	private:
+
 		eureqa::server_info instance;
 
 	public:
-//		solution_info solution_; // a solution recently added server's solution frontier
-//		float generations_; // total generations completed
-//		float generations_per_sec_; // generations speed
-//		float evaluations_; // total times any equation was evaluated
-//		float evaluations_per_sec_; // evaluation speed
-//		int total_population_size_; // total number of individuals in the current population
+
+		/**
+		 * Since those variables will be visible directly from Python, they are written with lowercase_separated_by_underscores
+		 */
+		std::string& hostname;
+		std::string& operating_system;
+		double& eureqa_version;
+		int& cpu_cores;
 
 		// Wrapper for default constructor
-		ServerInfo() {}
+		ServerInfo() :	hostname(instance.hostname_),
+						operating_system(instance.operating_system_),
+						eureqa_version(instance.eureqa_version_),
+						cpu_cores(instance.cpu_cores_)
+						{}
 
 		// Wrapper for function testing if info is entered and in range
 		bool IsValid() {return instance.is_valid();}

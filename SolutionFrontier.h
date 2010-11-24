@@ -21,10 +21,13 @@ class SolutionInfo
 	public:
 
 		// Getter for the eureqa::solution_info's instance
-		eureqa::solution_info GetInstance() const {return instance;}
+		const eureqa::solution_info& GetInstance()  {return instance;}
 
 		// Wrapper for default constructor
 		SolutionInfo(std::string text = "") : instance(text) {}
+
+		// TODO: Description and check if it works!
+		SolutionInfo(eureqa::solution_info& instance) {/*TODO: Implement*/}
 
 		// Wrappers for functions testing if the solution dominates another solution in fitness and complexity
 		bool Dominates(SolutionInfo& solutionInfo) {return instance.dominates(solutionInfo.GetInstance());}
@@ -42,10 +45,10 @@ class SolutionFrontier
 
 		// Wrapper for function adding solution to the pareto front if non-dominated
 		// and removing any existing dominated by the solution
-		bool Add(const SolutionInfo& solutionInfo) {return instance.add(solutionInfo.GetInstance());}
+		// TODO: bool Add(const SolutionInfo& solutionInfo) {return instance.add(solutionInfo.GetInstance());}
 
 		// Wrapper for function testing if a solution is non-dominated and not already on the current frontier
-		bool Test(const SolutionInfo& solutionInfo) {return instance.test(solutionInfo.GetInstance());}
+		// TODO: bool Test(const SolutionInfo& solutionInfo) {return instance.test(solutionInfo.GetInstance());}
 
 		// Wrapper for function returning a text display of the frontier
 		std::string ToString() const {return instance.to_string();}

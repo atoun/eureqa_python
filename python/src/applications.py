@@ -1,5 +1,7 @@
 import eureqa_python
 
 
-dc = eureqa_python.DummyClass()
-print dc.test('World')
+# ServerInfo
+
+si = eureqa_python.ServerInfo()
+print 'YO'

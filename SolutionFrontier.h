@@ -26,8 +26,8 @@ class SolutionInfo
 		// Wrapper for default constructor
 		SolutionInfo(std::string text = "") : instance(text) {}
 
-		// TODO: Description and check if it works!
-		SolutionInfo(eureqa::solution_info& instance) {/*TODO: Implement*/}
+		// Constructor taking eureqa::solution_info as the parameter
+		SolutionInfo(eureqa::solution_info& instance) {this->instance = instance;}
 
 		// Wrappers for functions testing if the solution dominates another solution in fitness and complexity
 		bool Dominates(SolutionInfo& solutionInfo) {return instance.dominates(solutionInfo.GetInstance());}

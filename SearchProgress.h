@@ -1,5 +1,5 @@
 /*
- * TODO: description
+ *  Wrapper class for eureqa::search_progress
  *
  *  Created on: Nov 21, 2010
  *      Author: MF
@@ -22,32 +22,29 @@ class SearchProgress
 
 	public:
 
-		/**
-		 * Since those variables will be visible directly from Python, they are written with lowercase_separated_by_underscores
-		 */
-		SolutionInfo solution;
-		float& generations;
-		float& generations_per_sec;
-		float& evaluations;
-		float& evaluations_per_sec;
-		int& total_population_size;
-
-
 		// Wrapper for default constructor
-		SearchProgress() :	solution(instance.solution_),
-							generations(instance.generations_),
-							generations_per_sec(instance.generations_per_sec_),
-							evaluations(instance.evaluations_),
-							evaluations_per_sec(instance.evaluations_per_sec_),
-							total_population_size(instance.total_population_size_)
-							{}
-
+		SearchProgress() {}
 
 		// Wrapper for function testing if fields are entered and in range
 		bool IsValid() const {return instance.is_valid();}
 
 		// Wrapper for function returning a short text summary of the search progress
 		std::string Summary() const {return instance.summary();}
+
+		// Getters and setters for eureqa::search_progress's public members
+		SolutionInfo GetSolution() {return SolutionInfo(instance.solution_);}
+		void SetSolution(SolutionInfo& solution) {instance.solution_ = solution.GetInstance();}
+		float GetGenerations() {return instance.generations_;}
+		void SetGenerations(float generations) {instance.generations_ = generations;}
+	    float GetGenerationsPerSec() {return instance.evaluations_per_sec_;}
+	    void SetGenerationsPerSec(float generationsPerSec) {instance.generations_per_sec_ = generationsPerSec;}
+		float GetEvaluations() {return instance.evaluations_;}
+	    void SetEvaluations(float evaluations) {instance.evaluations_ = evaluations;}
+	    float GetEvaluationsPerSec() {return instance.evaluations_per_sec_;}
+	    void SetEvaluationsPerSec(float evaluationsPerSec) {instance.evaluations_per_sec_ = evaluationsPerSec;}
+	    int GetTotalPopulationSize() {return instance.total_population_size_;}
+	    void SetTotalPopulationSize(int totalPopulationSize) {instance.total_population_size_ = totalPopulationSize;}
+
 };
 
 

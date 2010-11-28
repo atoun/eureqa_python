@@ -18,46 +18,15 @@ class SearchOptions
 
 		eureqa::search_options instance;
 
+		//TODO: std::vector<std::string> building_blocks_;
+
 	public:
 
-		/**
-		 * Since those variables will be visible directly from Python, they are written with lowercase_separated_by_underscores
-		 */
-		std::string& search_relationship;
-		//TODO: std::vector<std::string> building_blocks_;
-		float& normalize_fitness_by;
-		int& fitness_metric;
-		int& solution_population_size;
-		int& predictor_population_size;
-		int& trainer_population_size;
-		float& solution_crossover_probability;
-		float& solution_mutation_probability;
-		float& predictor_crossover_probability;
-		float& predictor_mutation_probability;
-		std::string& implicit_derivative_dependencies;
+		// Wrapper for eureqa::search_option's constructor with default parameter's value
+		SearchOptions() : instance("0=f(0)"){}
 
-		int& max_delays_per_variable;
-		float& max_history_fraction;
-		int& min_implicit_variables_used;
-
-		// Wrapper for default constructor
-		SearchOptions(std::string searchRelationship = "0=f(0)") :	instance(searchRelationship),
-																	search_relationship(instance.search_relationship_),
-																	//TODO: std::vector<std::string> building_blocks_
-																	normalize_fitness_by(instance.normalize_fitness_by_),
-																	fitness_metric(instance.fitness_metric_),
-																	solution_population_size(instance.solution_population_size_),
-																	predictor_population_size(instance.predictor_population_size_),
-																	trainer_population_size(instance.trainer_population_size_),
-																	solution_crossover_probability(instance.solution_crossover_probability_),
-																	solution_mutation_probability(instance.solution_mutation_probability_),
-																	predictor_crossover_probability(instance.predictor_crossover_probability_),
-																	predictor_mutation_probability(instance.predictor_mutation_probability_),
-																	implicit_derivative_dependencies(instance.implicit_derivative_dependencies_),
-																	max_delays_per_variable(instance.max_delays_per_variable_),
-																	max_history_fraction(instance.max_history_fraction_),
-																	min_implicit_variables_used(instance.min_implicit_variables_used_)
-																	{}
+		// Wrapper for eureqa::search_option's constructor
+		SearchOptions(std::string searchRelationship) : instance(searchRelationship) {}
 
 		// Wrapper for function testing if the options are entered and in range
 		bool IsValid() const {return instance.is_valid();}
@@ -68,6 +37,36 @@ class SearchOptions
 
 		// Wrapper for function returning a short text summary of the search options
 		std::string Summary() const {return instance.summary();}
+
+		// Getters and setters for eureqa::search_options's public members
+		int GetFitnessMetric() {return instance.fitness_metric_;}
+		void SetFitnessMetric(int fitnessMetric) {instance.fitness_metric_ = fitnessMetric;}
+		std::string GetImplicitDerivativeDependencies() {return instance.implicit_derivative_dependencies_;}
+		void SetImplicitDerivativeDependencies(std::string implicitDerivativeDependencies) {instance.implicit_derivative_dependencies_ = implicitDerivativeDependencies;}
+		int GetMaxDelaysPerVariable() {return instance.max_delays_per_variable_;}
+		void SetMaxDelaysPerVariable(int maxDelaysPerVariable) {instance.max_delays_per_variable_ = maxDelaysPerVariable;}
+		float GetMaxHistoryFraction() {return instance.max_history_fraction_;}
+		void SetMaxHistoryFraction(float maxHistoryFraction) {instance.max_history_fraction_ = maxHistoryFraction;}
+		int GetMinImplicitVariablesUsed() {return instance.min_implicit_variables_used_;}
+		void SetMinImplicitVariablesUsed(int minImplicitVariablesUsed) {instance.min_implicit_variables_used_ = minImplicitVariablesUsed;}
+		float GetNormalizeFitnessBy() {return instance.normalize_fitness_by_;}
+		void SetNormalizeFitnessBy(float normalizeFitnessBy) {instance.normalize_fitness_by_ = normalizeFitnessBy;}
+		float GetPredictorCrossoverProbability() {return instance.predictor_crossover_probability_;}
+		void SetPredictorCrossoverProbability(float predictorCrossoverProbability) {instance.predictor_crossover_probability_ = predictorCrossoverProbability;}
+		float GetPredictorMutationProbability() {return instance.predictor_mutation_probability_;}
+		void SetPredictorMutationProbability(float predictorMutationProbability) {instance.predictor_mutation_probability_ = predictorMutationProbability;}
+		int GetPredictorPopulationSize() {return instance.predictor_population_size_;}
+		void SetPredictorPopulationSize(int predictorPopulationSize) {instance.predictor_population_size_ = predictorPopulationSize;}
+		std::string GetSearchRelationship() {return instance.search_relationship_;}
+		void SetSearchRelationship(std::string searchRelationship) {instance.search_relationship_ = searchRelationship;}
+		float GetSolutionCrossoverProbability() {return instance.solution_crossover_probability_;}
+		void SetSolutionCrossoverProbability(float solutionCrossoverProbability) {instance.solution_crossover_probability_ = solutionCrossoverProbability;}
+		float GetSolutionMutationProbability() {return instance.solution_mutation_probability_;}
+		void SetSolutionMutationProbability(float solutionMutationProbability) {instance.solution_mutation_probability_ = solutionMutationProbability;}
+		int GetSolutionPopulationSize() {return instance.solution_population_size_;}
+		void SetSolutionPopulationSize(int solutionPopulationSize) {instance.solution_population_size_ = solutionPopulationSize;}
+		int GetTrainerPopulationSize() {return instance.trainer_population_size_;}
+		void SetTrainerPopulationSize(int trainerPopulationSize) {instance.trainer_population_size_ = trainerPopulationSize;}
 };
 
 

@@ -32,16 +32,16 @@ class SearchProgress
 		std::string Summary() const {return instance.summary();}
 
 		// Getters and setters for eureqa::search_progress's public members
-		SolutionInfo GetSolution() {return SolutionInfo(instance.solution_);}
-		void SetSolution(SolutionInfo& solution) {instance.solution_ = solution.GetInstance();}
-		float GetGenerations() {return instance.generations_;}
-		void SetGenerations(float generations) {instance.generations_ = generations;}
-	    float GetGenerationsPerSec() {return instance.evaluations_per_sec_;}
-	    void SetGenerationsPerSec(float generationsPerSec) {instance.generations_per_sec_ = generationsPerSec;}
 		float GetEvaluations() {return instance.evaluations_;}
 	    void SetEvaluations(float evaluations) {instance.evaluations_ = evaluations;}
 	    float GetEvaluationsPerSec() {return instance.evaluations_per_sec_;}
 	    void SetEvaluationsPerSec(float evaluationsPerSec) {instance.evaluations_per_sec_ = evaluationsPerSec;}
+		float GetGenerations() {return instance.generations_;}
+		void SetGenerations(float generations) {instance.generations_ = generations;}
+	    float GetGenerationsPerSec() {return instance.evaluations_per_sec_;}
+	    void SetGenerationsPerSec(float generationsPerSec) {instance.generations_per_sec_ = generationsPerSec;}
+		SolutionInfo GetSolution() {return SolutionInfo(instance.solution_);}
+		void SetSolution(SolutionInfo& solution) {instance.solution_ = solution.GetInstance();}
 	    int GetTotalPopulationSize() {return instance.total_population_size_;}
 	    void SetTotalPopulationSize(int totalPopulationSize) {instance.total_population_size_ = totalPopulationSize;}
 

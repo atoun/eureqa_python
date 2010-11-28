@@ -30,14 +30,14 @@ class ServerInfo
 		std::string Summary() {return instance.summary();}
 
 		// Getters and setters for eureqa::server_info's public members
+		int GetCpuCores() {return instance.cpu_cores_;}
+		void SetCpuCores(int cpu_cores) {instance.cpu_cores_ = cpu_cores;}
+		double GetEureqaVersion() {return instance.eureqa_version_;}
+		void SetEureqaVersion(double eureqa_version) {instance.eureqa_version_ = eureqa_version;}
 		std::string GetHostname() {return instance.hostname_;}
 		void SetHostname(std::string hostname) {instance.hostname_ = hostname;}
 		std::string GetOperatingSystem() {return instance.operating_system_;}
 		void SetOperatingSystem(std::string operating_system) {instance.operating_system_ = operating_system;}
-		double GetEureqaVersion() {return instance.eureqa_version_;}
-		void SetEureqaVersion(double eureqa_version) {instance.eureqa_version_ = eureqa_version;}
-		int GetCpuCores() {return instance.cpu_cores_;}
-		void SetCpuCores(int cpu_cores) {instance.cpu_cores_ = cpu_cores;}
 };
 
 

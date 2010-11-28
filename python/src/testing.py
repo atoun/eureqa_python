@@ -100,6 +100,11 @@ class Test(unittest.TestCase):
         search_options = eureqa_python.SearchOptions('text1')
         self.assertEquals(search_options.search_relationship, 'text1')
         
+        building_blocks = eureqa_python.StringVector()
+        building_blocks.append('text_v')
+        search_options.building_blocks = building_blocks
+        self.assertEqual(search_options.building_blocks[0], 'text_v')
+        
         search_options.search_relationship = 'text2'
         self.assertEquals(search_options.search_relationship, 'text2')
         

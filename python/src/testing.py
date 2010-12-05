@@ -192,6 +192,22 @@ class Test(unittest.TestCase):
         
         self.assertEquals(solution_frontier.size(), 0)
         
+    def testDataSet(self):
+        data_set = eureqa_python.DataSet()
+        
+        # TODO: constructor with string-parameters
+        
+        self.assertEquals(data_set.is_valid(), False)
+        
+        data_set = eureqa_python.DataSet(10, 11)
+        
+        self.assertEquals(data_set.is_valid(), True)
+        
+        data_set.set_default_symbols()
+        
+        self.assertEquals(data_set.size(), 10)
+        
+        # TODO: start with num_vars
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

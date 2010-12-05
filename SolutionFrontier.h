@@ -5,6 +5,7 @@
  *      Author: MF
  */
 
+
 #ifndef SOLUTIONFRONTIER_H_
 #define SOLUTIONFRONTIER_H_
 
@@ -78,7 +79,8 @@ class SolutionFrontier
 
 #endif /* SOLUTIONFRONTIER_H_ */
 
+
 /**
  * Eventual TODOs
- * - const solution_info& operator [](int i) const { return front_[i]; }
+ * const solution_info& operator [](int i) const { return front_[i]; }
  */

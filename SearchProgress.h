@@ -5,6 +5,7 @@
  *      Author: MF
  */
 
+
 #ifndef SEARCHPROGRESS_H_
 #define SEARCHPROGRESS_H_
 
@@ -48,4 +49,3 @@ class SearchProgress
 
 
 #endif /* SEARCHPROGRESS_H_ */
-

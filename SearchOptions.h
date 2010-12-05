@@ -5,6 +5,7 @@
  *      Author: MF
  */
 
+
 #ifndef SEARCHOPTIONS_H_
 #define SEARCHOPTIONS_H_
 
@@ -25,6 +26,8 @@ class SearchOptions
 
 		// Wrapper for eureqa::search_option's constructor
 		SearchOptions(std::string searchRelationship) : instance(searchRelationship) {}
+
+		// Getter for the eureqa::search_options' instance
 
 		// Wrapper for function testing if the options are entered and in range
 		bool IsValid() const {return instance.is_valid();}

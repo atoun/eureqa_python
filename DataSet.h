@@ -1,9 +1,10 @@
 /*
- * TODO: description
+ *  Wrapper class for eureqa::data_set
  *
  *  Created on: Nov 21, 2010
  *      Author: MF
  */
+
 
 #ifndef DATASET_H_
 #define DATASET_H_
@@ -19,8 +20,6 @@ class DataSet
 		eureqa::data_set instance;
 
 	public:
-//		boost::numeric::ublas::matrix<float> X_; // data values
-//		boost::numeric::ublas::matrix<float> Y_; // special values (reserved)
 
 		// Wrappers for constructors
 		DataSet() {}
@@ -70,6 +69,13 @@ class DataSet
 
 
 #endif /* DATASET_H_ */
+
+
+/**
+ * Important TODOs
+ * boost::numeric::ublas::matrix<float> X_; // data values
+ * boost::numeric::ublas::matrix<float> Y_; // special values (reserved)
+ */
 
 
 /**

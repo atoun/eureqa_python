@@ -11,6 +11,9 @@
 
 #include <eureqa/connection.h>
 
+#include "DataSet.h"
+#include "SearchOptions.h"
+
 
 class CommandResult
 {
@@ -23,6 +26,9 @@ class CommandResult
 		// Wrappers for constructors
 		CommandResult() {}
 		CommandResult(int value, std::string message) : instance(value, message) {}
+
+		// Constructor taking eureqa::command_result as the parameter
+		CommandResult(eureqa::command_result& instance) {this->instance = instance;}
 
 		// Getters and setters for eureqa::command_result's public members
 		int GetValue() {return instance.value_;}
@@ -40,14 +46,14 @@ class Connection
 	public:
 
 		// Wrappers for constructors
-		Connection(const Connection& c) {/*TODO:*/}
 		Connection() {}
-		// Connection(std::string hostname, int port = eureqa::default_port_tcp) : instance(new eureqa::connection(hostname, port)) {}
+		Connection(std::string hostname) : instance(hostname, eureqa::default_port_tcp) {}
+		Connection(std::string hostname, int port) : instance(hostname, port) {}
 		// TODO: connection(boost::asio::ioconnection(boost::asio::io_service& io_service);_service& io_service);
 
 		// Wrappers for basic connection information
 		bool IsConnected() {return instance.is_connected();}
-		// TODO: connection(boost::asio::io_service& io_service);
+		//CommandResult last_result() const {return CommandResult(instance.last_result_);}
 
 		// Wrappers for functions opening a network connection to a eureqa server
 		bool Connect(std::string hostname, int port) {return instance.connect(hostname, port);}
@@ -55,14 +61,15 @@ class Connection
 
 		// Wrappers for functions sending server the data set over the network
 		// or telling it to load it from a network file
-		// TODO: bool send_data_set(const eureqa::data_set& data);
-		bool SendDataLocation(std::string path) {return instance.send_data_location(path);}
+		// bool SendData(DataSet data) {return instance.send_data_set(data.GetInstance()};
+		//bool SendDataLocation(std::string path) {return instance.send_data_location(path);}
 
 		// Wrapper for functions sending server the search options
+		//bool SendOptions(SearchOptions searchOptions) {return instance.send_options(searchOptions.GetInstance());}
 		// TODO: bool send_options(const eureqa::search_options& options);
 
 		// Wrappers for functions sending server individuals to insert into its population
-		bool SendIndividuals(std::string text) {return instance.send_individuals(text);}
+		//bool SendIndividuals(std::string text) {return instance.send_individuals(text);}
 		// TODO: bool send_individuals(eureqa::solution_info soln);
 		// TODO: bool send_individuals(const std::vector<eureqa::solution_info>& individuals);
 

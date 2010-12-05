@@ -156,6 +156,39 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.add_property("solution", &SearchProgress::GetSolution, &SearchProgress::SetSolution)
 	.add_property("total_population_size", &SearchProgress::GetTotalPopulationSize, &SearchProgress::SetTotalPopulationSize)
 	;
+
+	// DataSet -- function pointers which enable overloading
+    bool (DataSet::*ImportAscii_1)(std::string path) = &DataSet::ImportAscii;
+    bool (DataSet::*ImportAscii_2)(std::string path, std::string& errorMessage) = &DataSet::ImportAscii;
+
+	// DataSet
+	boost::python::class_<DataSet>("DataSet")
+	.def(boost::python::init<std::string>())
+	.def(boost::python::init<int, int>())
+	.def("is_valid", &DataSet::IsValid)
+	.def("set_default_symbols", &DataSet::SetDefaultSymbols)
+	.def("size", &DataSet::Size)
+	.def("num_vars", &DataSet::NumVars)
+	.def("special_vars", &DataSet::SpecialVars)
+	.def("clear", &DataSet::Clear)
+	.def("swap", &DataSet::Swap)
+	.def("resize", &DataSet::Resize)
+	.def("empty", &DataSet::Empty)
+	.def("import_ascii", ImportAscii_1)
+	.def("import_ascii", ImportAscii_2)
+	.def("export_ascii", &DataSet::ExportAscii)
+	.def("summary", &DataSet::Summary)
+	.def("get_r", &DataSet::GetR)
+	.def("set_r", &DataSet::SetR)
+	.def("get_t", &DataSet::GetT)
+	.def("set_t", &DataSet::SetT)
+	.def("get_w", &DataSet::GetW)
+	.def("set_w", &DataSet::SetW)
+	.def("get_x_symbols", &DataSet::GetXSymbols)
+	.def("set_x_symbols", &DataSet::SetXSymbols)
+	.def("get_y_symbols", &DataSet::GetYSymbols)
+	.def("set_y_symbols", &DataSet::SetYSymbols)
+	;
 }
 
 

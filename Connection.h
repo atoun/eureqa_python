@@ -12,7 +12,24 @@
 #include <eureqa/connection.h>
 
 
-// TODO: command_result
+class CommandResult
+{
+	private:
+
+		eureqa::command_result instance;
+
+	public:
+
+		// Wrappers for constructors
+		CommandResult() {}
+		CommandResult(int value, std::string message) : instance(value, message) {}
+
+		// Getters and setters for eureqa::command_result's public members
+		int GetValue() {return instance.value_;}
+		void SetValue(int value) {instance.value_ = value;}
+		std::string GetMessage() {return instance.message_;}
+		void SetMessage(std::string message) {instance.message_ = message;}
+};
 
 class Connection
 {

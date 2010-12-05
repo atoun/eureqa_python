@@ -188,6 +188,11 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def("set_x_symbols", &DataSet::SetXSymbols)
 	.def("get_y_symbols", &DataSet::GetYSymbols)
 	.def("set_y_symbols", &DataSet::SetYSymbols)
+	.add_property("r", &DataSet::GetR, &DataSet::SetR)
+	.add_property("t", &DataSet::GetT, &DataSet::SetT)
+	.add_property("w", &DataSet::GetW, &DataSet::SetW)
+	.add_property("x_symbols", &DataSet::GetXSymbols, &DataSet::SetXSymbols)
+	.add_property("y_symbols", &DataSet::GetYSymbols, &DataSet::SetYSymbols)
 	;
 }
 

@@ -70,10 +70,15 @@ class SolutionFrontier
 
 		// Wrappers for basic container functions
 		int Size() const {return instance.size();}
-		// TODO: solution_info& operator [](int i) { return front_[i]; }
-		// TODO: const solution_info& operator [](int i) const { return front_[i]; }
+		SolutionInfo operator [] (int i) {return SolutionInfo(instance[i]);}
 		void Clear() {instance.clear();}
 		void Remove(int i) {instance.remove(i);}
 };
 
+
 #endif /* SOLUTIONFRONTIER_H_ */
+
+/**
+ * Eventual TODOs
+ * - const solution_info& operator [](int i) const { return front_[i]; }
+ */

@@ -17,20 +17,16 @@ class DataSet
 		eureqa::data_set instance;
 
 	public:
-//		std::vector<int> r_; // series identifier (optional)
-//		std::vector<float> t_; // time ordering values (optional)
-//		std::vector<float> w_; // weight values (optional)
 //		boost::numeric::ublas::matrix<float> X_; // data values
 //		boost::numeric::ublas::matrix<float> Y_; // special values (reserved)
-//		std::vector<std::string> X_symbols_; // symbols for data values
-//		std::vector<std::string> Y_symbols_; // symbols for special values (reserved)
-
 
 		// Wrappers for constructors
-		DataSet(const DataSet& c) {/*TODO:*/}
 		DataSet() {}
 		DataSet(std::string path) : instance(path) {}
 		DataSet(int rows, int cols) : instance(rows,cols) {}
+
+		// Getter for eureqa::data_set's instance
+		eureqa::data_set& GetInstance() {return instance;}
 
 		// Wrapper for function testing if the data set is sized and filled in correctly
 		bool IsValid() const {return instance.is_valid();}
@@ -45,24 +41,38 @@ class DataSet
 		// TODO: float& operator ()(int i, int j)       { return X_(i,j); }
 		// TODO: const float& operator ()(int i, int j) const { return X_(i,j); }
 		void Clear() {instance.clear();}
-		// TODO: void swap(data_set& d);
+		void Swap(DataSet dataSet) {instance.swap(dataSet.GetInstance());}
 		void Resize(int rows, int cols) {instance.resize(rows,cols);}
 		bool Empty() const {return instance.empty();}
 
 		// Wrappers for functions importing plain ascii text files with single line header
-		// can read a eureqa header, plain column header, or missing header
-		// data can be delimited by whitespace or commas
-		// lines can be commented using the '%' character
-		// TODO: bool import_ascii(std::string path);
-		// TODO: bool import_ascii(std::string path, std::string& error_msg);
-		// TODO: bool import_ascii(std::istream& is);
-		// TODO: bool import_ascii(std::istream& is, std::string& error_msg);
-		// TODO: void export_ascii(std::string path) { std::ofstream file(path.c_str()); export_ascii(file); }
-		// TODO: void export_ascii(std::ostream& os);
+		bool ImportAscii(std::string path) {return instance.import_ascii(path);}
+		bool ImportAscii(std::string path, std::string& errorMessage) {return instance.import_ascii(path, errorMessage);}
+		void ExportAscii(std::string path) {instance.export_ascii(path);}
 
 		// Wrapper for function returning a short text summary of the data set
 		std::string Summary() const {return instance.summary();}
+
+		// Getters and setters for eureqa::data_set's public members
+		std::vector<int> GetR() {return instance.r_;}
+		void SetR(std::vector<int> r) {instance.r_ = r;}
+		std::vector<float> GetT() {return instance.t_;}
+		void SetT(std::vector<float> t) {instance.t_ = t;}
+		std::vector<float> GetW() {return instance.w_;}
+		void SetW(std::vector<float> w) {instance.w_ = w;}
+		std::vector<std::string> GetXSymbols() {return instance.X_symbols_;}
+		void SetXSymbols(std::vector<std::string> xSymbols) {instance.X_symbols_ = xSymbols;}
+		std::vector<std::string> GetYSymbols() {return instance.Y_symbols_;}
+		void SetYSymbols(std::vector<std::string> ySymbols) {instance.Y_symbols_ = ySymbols;}
 };
 
 
 #endif /* DATASET_H_ */
+
+
+/**
+ * Eventual TODOs
+ * bool import_ascii(std::istream& is);
+ * bool import_ascii(std::istream& is, std::string& error_msg);
+ * void export_ascii(std::ostream& os);
+ */

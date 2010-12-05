@@ -18,8 +18,6 @@ class SearchOptions
 
 		eureqa::search_options instance;
 
-		//TODO: Python's list for building blocks
-
 	public:
 
 		// Wrapper for eureqa::search_option's constructor with default parameter's value
@@ -39,8 +37,8 @@ class SearchOptions
 		std::string Summary() const {return instance.summary();}
 
 		// Getters and setters for eureqa::search_options's public members
-		std::vector<std::string> GetBuildingBlocks() {return instance.building_blocks_;} //TODO: perhaps reference?
-		void SetBuildingBlocks(std::vector<std::string> buildingBlocks) {instance.building_blocks_ = buildingBlocks;} //TODO: perhaps reference?
+		std::vector<std::string> GetBuildingBlocks() {return instance.building_blocks_;}
+		void SetBuildingBlocks(std::vector<std::string> buildingBlocks) {instance.building_blocks_ = buildingBlocks;}
 		int GetFitnessMetric() {return instance.fitness_metric_;}
 		void SetFitnessMetric(int fitnessMetric) {instance.fitness_metric_ = fitnessMetric;}
 		std::string GetImplicitDerivativeDependencies() {return instance.implicit_derivative_dependencies_;}

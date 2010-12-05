@@ -44,7 +44,6 @@ class SearchProgress
 		void SetSolution(SolutionInfo& solution) {instance.solution_ = solution.GetInstance();}
 	    int GetTotalPopulationSize() {return instance.total_population_size_;}
 	    void SetTotalPopulationSize(int totalPopulationSize) {instance.total_population_size_ = totalPopulationSize;}
-
 };
 
 

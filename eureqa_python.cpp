@@ -13,9 +13,19 @@
 
 BOOST_PYTHON_MODULE(eureqa_python)
 {
-	// Utility classes -- std::vector<std::string>
+	// Utility class -- std::vector<std::string>
 	boost::python::class_<std::vector<std::string> >("StringVector")
-	.def(boost::python::vector_indexing_suite< std::vector<std::string> >())
+	.def(boost::python::vector_indexing_suite<std::vector<std::string> >())
+	;
+
+	// Utility class -- std::vector<int>
+	boost::python::class_<std::vector<int> >("IntegerVector")
+	.def(boost::python::vector_indexing_suite<std::vector<int> >())
+	;
+
+	// Utility class -- std::vector<std::float>
+	boost::python::class_<std::vector<float> >("FloatVector")
+	.def(boost::python::vector_indexing_suite<std::vector<float> >())
 	;
 
 	// SearchOptions
@@ -92,6 +102,17 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.add_property("fitness", &SolutionInfo::GetFitness, &SolutionInfo::SetFitness)
 	.add_property("score", &SolutionInfo::GetScore, &SolutionInfo::SetScore)
 	.add_property("text", &SolutionInfo::GetText, &SolutionInfo::SetText)
+	;
+
+	// SolutionFrontier
+	boost::python::class_<SolutionFrontier>("SolutionFrontier")
+	.def("add", &SolutionFrontier::Add)
+	.def("test", &SolutionFrontier::Test)
+	.def("to_string", &SolutionFrontier::ToString)
+	.def("size", &SolutionFrontier::Size)
+	// TODO: operator
+	.def("clear", &SolutionFrontier::Clear)
+	.def("remove", &SolutionFrontier::Remove)
 	;
 
 	// ServerInfo

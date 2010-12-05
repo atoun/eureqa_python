@@ -149,7 +149,50 @@ class Test(unittest.TestCase):
         
     # TODO: excpetions while type conversion
  
+    def testSolutionFrontier(self):
+        solution_frontier = eureqa_python.SolutionFrontier()
+        
+        solution_info_1 = eureqa_python.SolutionInfo()
+        solution_info_2 = eureqa_python.SolutionInfo()
+        solution_info_3 = eureqa_python.SolutionInfo()
+        
+        solution_info_1.score = 100
+        solution_info_1.fitness = 0.1
+        solution_info_1.complexity = 100
+        solution_info_1.age = 10
+        
+        solution_info_2.score = 100
+        solution_info_2.fitness = 0.1
+        solution_info_2.complexity = 10
+        solution_info_2.age = 10
 
+        solution_info_3.score = 100
+        solution_info_3.fitness = 0.1
+        solution_info_3.complexity = 1
+        solution_info_3.age = 10
+        
+        self.assertTrue(solution_frontier.add(solution_info_1))
+        
+        result = not (solution_info_1.dominates(solution_info_2) or solution_info_1.matches(solution_info_2))
+        self.assertEquals(solution_frontier.test(solution_info_2), result)
+        
+        self.assertTrue(solution_frontier.to_string() != '')
+        
+        self.assertEquals(solution_frontier.size(), 1)
+        
+        solution_frontier.remove(0)
+
+        self.assertEquals(solution_frontier.size(), 0)
+        
+        self.assertTrue(solution_frontier.add(solution_info_1))
+        
+        self.assertEquals(solution_frontier.size(), 1)
+        
+        solution_frontier.clear()
+        
+        self.assertEquals(solution_frontier.size(), 0)
+        
+        
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

@@ -81,6 +81,8 @@ class SolutionFrontier
 
 
 /**
+ *
  * Eventual TODOs
  * const solution_info& operator [](int i) const { return front_[i]; }
+ *
  */

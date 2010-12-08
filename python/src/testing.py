@@ -6,6 +6,7 @@ Created on Oct 29, 2010
 import unittest
 import eureqa_python
 
+# TODO: excpetions while type conversion
 
 class Test(unittest.TestCase):
 
@@ -146,8 +147,6 @@ class Test(unittest.TestCase):
         
         search_options.trainer_population_size = 14
         self.assertEquals(search_options.trainer_population_size, 14)
-        
-    # TODO: excpetions while type conversion
  
     def testSolutionFrontier(self):
         solution_frontier = eureqa_python.SolutionFrontier()
@@ -195,8 +194,6 @@ class Test(unittest.TestCase):
     def testDataSet(self):
         data_set = eureqa_python.DataSet()
         
-        # TODO: constructor with string-parameters
-        
         self.assertEquals(data_set.is_valid(), False)
         
         data_set = eureqa_python.DataSet(10, 11)
@@ -207,7 +204,52 @@ class Test(unittest.TestCase):
         
         self.assertEquals(data_set.size(), 10)
         
-        # TODO: start with num_vars
+        self.assertEquals(data_set.num_vars(), 11)
+        
+        self.assertEquals(data_set.special_vars(), 0)
+        
+        data_set.clear()
+        
+        self.assertEquals(data_set.size(), 0)
+        
+        self.assertEquals(data_set.num_vars(), 0)
+        
+        self.assertEquals(data_set.special_vars(), 0)
+        
+        with open('data.txt', 'w') as file:
+            file.write('x' + '\t' + 'y' + '\t' + 'z' + '\n')
+            for i in range(0,100):
+                file.write(str(i) + '\t' + str(i+1) + '\t' + str(i+2) + '\n')
+                           
+        data_set_2 = eureqa_python.DataSet('data.txt')
+        
+        self.assertEquals(data_set_2.size(), 100)
+        
+        self.assertEquals(data_set_2.num_vars(), 3)
+        
+        self.assertEquals(data_set_2.special_vars(), 0)
+        
+        data_set.swap(data_set_2)
+        
+        self.assertEquals(data_set.size(), 100)
+        
+        self.assertEquals(data_set.num_vars(), 3)
+        
+        self.assertEquals(data_set.special_vars(), 0)
+        
+        data_set.resize(200,400)
+        
+        self.assertEquals(data_set.size(), 200)
+        
+        self.assertEquals(data_set.num_vars(), 400)
+        
+        self.assertEquals(data_set.empty(), False)
+        
+        data_set.clear()
+        
+        self.assertEquals(data_set.empty(), True)
+        
+        # TODO: check len(x_symbols)     
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

@@ -39,8 +39,6 @@ class DataSet
 		int Size() const {return instance.size();}
 		int NumVars() const {return instance.num_vars();}
 		int SpecialVars() const {return instance.special_vars();}
-		// TODO: float& operator ()(int i, int j)       { return X_(i,j); }
-		// TODO: const float& operator ()(int i, int j) const { return X_(i,j); }
 		void Clear() {instance.clear();}
 		void Swap(DataSet dataSet) {instance.swap(dataSet.GetInstance());}
 		void Resize(int rows, int cols) {instance.resize(rows,cols);}
@@ -72,15 +70,21 @@ class DataSet
 
 
 /**
- * Important TODOs
+ *
+ * Probable TODO list:
  * boost::numeric::ublas::matrix<float> X_; // data values
  * boost::numeric::ublas::matrix<float> Y_; // special values (reserved)
+ * float& operator ()(int i, int j)       { return X_(i,j); }
+ * const float& operator ()(int i, int j) const { return X_(i,j); }
+ *
  */
 
 
 /**
- * Eventual TODOs
+ *
+ * Eventual TODO list:
  * bool import_ascii(std::istream& is);
  * bool import_ascii(std::istream& is, std::string& error_msg);
  * void export_ascii(std::ostream& os);
+ *
  */

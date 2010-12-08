@@ -110,7 +110,7 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def("test", &SolutionFrontier::Test)
 	.def("to_string", &SolutionFrontier::ToString)
 	.def("size", &SolutionFrontier::Size)
-	// TODO: operator
+	// TODO: operator []
 	.def("clear", &SolutionFrontier::Clear)
 	.def("remove", &SolutionFrontier::Remove)
 	;

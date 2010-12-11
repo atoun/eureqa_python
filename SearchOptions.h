@@ -28,6 +28,7 @@ class SearchOptions
 		SearchOptions(std::string searchRelationship) : instance(searchRelationship) {}
 
 		// Getter for the eureqa::search_options' instance
+		eureqa::search_options& GetInstance() {return instance;}
 
 		// Wrapper for function testing if the options are entered and in range
 		bool IsValid() const {return instance.is_valid();}

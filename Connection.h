@@ -13,6 +13,9 @@
 
 #include "DataSet.h"
 #include "SearchOptions.h"
+#include "SearchProgress.h"
+#include "ServerInfo.h"
+#include "SolutionFrontier.h"
 
 
 class CommandResult
@@ -28,7 +31,7 @@ class CommandResult
 		CommandResult(int value, std::string message) : instance(value, message) {}
 
 		// Constructor taking eureqa::command_result as the parameter
-		CommandResult(eureqa::command_result& instance) {this->instance = instance;}
+		CommandResult(const eureqa::command_result& instance) {this->instance = instance;}
 
 		// Getters and setters for eureqa::command_result's public members
 		int GetValue() {return instance.value_;}
@@ -53,7 +56,7 @@ class Connection
 
 		// Wrappers for basic connection information
 		bool IsConnected() {return instance.is_connected();}
-		//CommandResult last_result() const {return CommandResult(instance.last_result_);}
+		CommandResult LastResult() {return CommandResult(instance.last_result());}
 
 		// Wrappers for functions opening a network connection to a eureqa server
 		bool Connect(std::string hostname, int port) {return instance.connect(hostname, port);}
@@ -61,36 +64,35 @@ class Connection
 
 		// Wrappers for functions sending server the data set over the network
 		// or telling it to load it from a network file
-		// bool SendData(DataSet data) {return instance.send_data_set(data.GetInstance()};
-		//bool SendDataLocation(std::string path) {return instance.send_data_location(path);}
+		bool SendData(DataSet data) {return instance.send_data_set(data.GetInstance());}
+		bool SendDataLocation(std::string path) {return instance.send_data_location(path);}
 
 		// Wrapper for functions sending server the search options
-		//bool SendOptions(SearchOptions searchOptions) {return instance.send_options(searchOptions.GetInstance());}
-		// TODO: bool send_options(const eureqa::search_options& options);
+		bool SendOptions(SearchOptions searchOptions) {return instance.send_options(searchOptions.GetInstance());}
 
 		// Wrappers for functions sending server individuals to insert into its population
-		//bool SendIndividuals(std::string text) {return instance.send_individuals(text);}
-		// TODO: bool send_individuals(eureqa::solution_info soln);
-		// TODO: bool send_individuals(const std::vector<eureqa::solution_info>& individuals);
+		bool SendIndividuals(std::string text) {return instance.send_individuals(text);}
+		bool SendIndividuals(SolutionInfo solutionInfo) {return instance.send_individuals(solutionInfo.GetInstance());}
+		bool SendIndividuals(std::vector<SolutionInfo> individuals) {return false;} //TODO: make it inline
 
 		//  Wrapper for function sending server a population
-		// TODO: bool send_population(const std::vector<eureqa::solution_info>& individuals);
+		bool SendPopulation(std::vector<SolutionInfo> individuals) {return false;} //TODO: make it inline
 
 		//  Wrapper for function querying server for information on the search progress
-		// TODO: bool query_progress(eureqa::search_progress& progress);
+		boost::tuple<int> QueryProgress(); //TODO: make it inline
 
 		//  Wrapper for function querying server for its system information
-		// TODO: bool query_server_info(eureqa::server_info& info);
+		boost::tuple<int> QueryServerInfo(); //TODO: make it inline
 
 		//  Wrappers for functions querying server for random individuals from its population
-		// TODO: bool query_individuals(eureqa::solution_info& soln);
-		// TODO: bool query_individuals(std::vector<eureqa::solution_info>& individuals, int count);
+		boost::tuple<int> QueryIndividuals(); //TODO: make it inline
+		boost::tuple<int> QueryIndividuals(int count); //TODO: make it inline
 
 		//  Wrappers for function querying server for the current population
-		// TODO: bool query_population(std::vector<eureqa::solution_info>& individuals);
+		boost::tuple<int> QueryPopulation(); //TODO: make it inline
 
 		//  Wrapper for function querying the servers local solution frontier
-		// TODO: bool query_frontier(eureqa::solution_frontier& front);
+		boost::tuple<int> QueryFrontier(); //TODO: make it inline
 
 		//  Wrappers for functions telling server to start/pause/end searching
 		bool StartSearch() {return instance.start_search();}
@@ -98,8 +100,8 @@ class Connection
 		bool EndSearch() {return instance.end_search();}
 
 		//  Wrappers for functions calculating the solution info on the server
-		// TODO: bool calc_solution_info(eureqa::solution_info& soln);
-		// TODO: bool calc_solution_info(std::vector<eureqa::solution_info>& individuals);
+		boost::tuple<int> CalcSolutionInfo(SolutionInfo solutionInfo); //TODO: make it inline
+		boost::tuple<int> CalcSolutionInfo(std::vector<SolutionInfo> individuals); //TODO: make it inline
 
 		// returns are a short description of the connection
 		std::string Summary() const {return instance.summary();}

@@ -24,6 +24,12 @@ class ServerInfo
 		// Wrapper for default constructor
 		ServerInfo() {}
 
+		// TODO: remove ...
+		// ServerInfo(const eureqa::server_info& instance) {this->instance = instance;}
+
+		// TODO: description
+		eureqa::server_info& GetInstance() {return instance;}
+
 		// Wrapper for function testing if info is entered and in range
 		bool IsValid() {return instance.is_valid();}
 

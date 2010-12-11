@@ -26,6 +26,9 @@ class SearchProgress
 		// Wrapper for default constructor
 		SearchProgress() {}
 
+		// TODO: description
+		eureqa::search_progress& GetInstance() {return instance;}
+
 		// Wrapper for function testing if fields are entered and in range
 		bool IsValid() const {return instance.is_valid();}
 

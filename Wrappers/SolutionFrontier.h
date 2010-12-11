@@ -27,26 +27,26 @@ class SolutionInfo
 		// Wrapper for eureqa::solution_info's constructor
 		SolutionInfo(std::string text) : instance(text) {}
 
-		// Constructor taking eureqa::solution_info as the parameter
+		// Constructor taking eureqa::solution_info as the parameter (C++ usage)
 		SolutionInfo(eureqa::solution_info& instance) {this->instance = instance;}
 
-		// Getter for the eureqa::solution_info's instance
+		// Getter for the eureqa::solution_info's instance (C++ usage)
 		const eureqa::solution_info& GetInstance() {return instance;}
 
 		// Wrappers for functions testing if the solution dominates another solution in fitness and complexity
-		bool Dominates(SolutionInfo& solutionInfo) {return instance.dominates(solutionInfo.GetInstance());}
-		bool Matches(SolutionInfo& solutionInfo) {return instance.matches(solutionInfo.GetInstance());}
+		bool Dominates(SolutionInfo solutionInfo) {return instance.dominates(solutionInfo.GetInstance());}
+		bool Matches(SolutionInfo solutionInfo) {return instance.matches(solutionInfo.GetInstance());}
 
 		// Getters and setters for eureqa::solution_info's public members
-		unsigned int GetAge() {return instance.age_;}
+		unsigned int GetAge() const {return instance.age_;}
 		void SetAge(unsigned int age) {instance.age_ = age;}
-		float GetComplexity() {return instance.complexity_;}
+		float GetComplexity() const {return instance.complexity_;}
 		void SetComplexity(float complexity) {instance.complexity_ = complexity;}
-		float GetFitness() {return instance.fitness_;}
+		float GetFitness() const {return instance.fitness_;}
 		void SetFitness(float fitness) {instance.fitness_ = fitness;}
-		float GetScore() {return instance.score_;}
+		float GetScore() const {return instance.score_;}
 		void SetScore(float score) {instance.score_ = score;}
-		std::string GetText() {return instance.text_;}
+		std::string GetText() const {return instance.text_;}
 		void SetText(std::string text) {instance.text_ = text;}
 };
 
@@ -61,10 +61,10 @@ class SolutionFrontier
 
 		// Wrapper for function adding solution to the pareto front if non-dominated
 		// and removing any existing dominated by the solution
-		bool Add(SolutionInfo& solutionInfo) {return instance.add(solutionInfo.GetInstance());}
+		bool Add(SolutionInfo solutionInfo) {return instance.add(solutionInfo.GetInstance());}
 
 		// Wrapper for function testing if a solution is non-dominated and not already on the current frontier
-		bool Test(SolutionInfo& solutionInfo) {return instance.test(solutionInfo.GetInstance());}
+		bool Test(SolutionInfo solutionInfo) {return instance.test(solutionInfo.GetInstance());}
 
 		// Wrapper for function returning a text display of the frontier
 		std::string ToString() const {return instance.to_string();}
@@ -82,7 +82,7 @@ class SolutionFrontier
 
 /**
  *
- * Eventual TODOs
+ * Eventual TODO:
  * const solution_info& operator [](int i) const { return front_[i]; }
  *
  */

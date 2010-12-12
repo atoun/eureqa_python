@@ -26,6 +26,9 @@ class SearchProgress
 		// Wrapper for default constructor
 		SearchProgress() {}
 
+		// Constructor taking eureqa::search_progress as the parameter (C++ usage)
+		SearchProgress(const eureqa::search_progress& instance) {this->instance = instance;}
+
 		// Getter for the eureqa::search_progress' instance (C++ usage)
 		const eureqa::search_progress& GetInstance() {return instance;}
 

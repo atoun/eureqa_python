@@ -59,6 +59,12 @@ class SolutionFrontier
 
 	public:
 
+		// Default constructor
+		SolutionFrontier() {}
+
+		// Constructor taking eureqa::solution_frontier as the parameter (C++ usage)
+		SolutionFrontier(const eureqa::solution_frontier& instance){this->instance = instance;}
+
 		// Wrapper for function adding solution to the pareto front if non-dominated
 		// and removing any existing dominated by the solution
 		bool Add(SolutionInfo solutionInfo) {return instance.add(solutionInfo.GetInstance());}

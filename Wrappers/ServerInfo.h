@@ -24,6 +24,9 @@ class ServerInfo
 		// Wrapper for default constructor
 		ServerInfo() {}
 
+		// Constructor taking eureqa::server_info as the parameter (C++ usage)
+		ServerInfo(const eureqa::server_info& instance) {this->instance = instance;}
+
 		// Getter for the eureqa::server_info's instance (C++ usage)
 		const eureqa::server_info& GetInstance() {return instance;}
 

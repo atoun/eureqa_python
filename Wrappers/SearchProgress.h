@@ -26,8 +26,8 @@ class SearchProgress
 		// Wrapper for default constructor
 		SearchProgress() {}
 
-		// TODO: description
-		eureqa::search_progress& GetInstance() {return instance;}
+		// Getter for the eureqa::search_progress' instance (C++ usage)
+		const eureqa::search_progress& GetInstance() {return instance;}
 
 		// Wrapper for function testing if fields are entered and in range
 		bool IsValid() const {return instance.is_valid();}
@@ -36,17 +36,17 @@ class SearchProgress
 		std::string Summary() const {return instance.summary();}
 
 		// Getters and setters for eureqa::search_progress's public members
-		float GetEvaluations() {return instance.evaluations_;}
+		float GetEvaluations() const {return instance.evaluations_;}
 	    void SetEvaluations(float evaluations) {instance.evaluations_ = evaluations;}
-	    float GetEvaluationsPerSec() {return instance.evaluations_per_sec_;}
+	    float GetEvaluationsPerSec() const {return instance.evaluations_per_sec_;}
 	    void SetEvaluationsPerSec(float evaluationsPerSec) {instance.evaluations_per_sec_ = evaluationsPerSec;}
-		float GetGenerations() {return instance.generations_;}
+		float GetGenerations() const {return instance.generations_;}
 		void SetGenerations(float generations) {instance.generations_ = generations;}
-	    float GetGenerationsPerSec() {return instance.evaluations_per_sec_;}
+	    float GetGenerationsPerSec() const {return instance.evaluations_per_sec_;}
 	    void SetGenerationsPerSec(float generationsPerSec) {instance.generations_per_sec_ = generationsPerSec;}
-		SolutionInfo GetSolution() {return SolutionInfo(instance.solution_);}
+		SolutionInfo GetSolution() const {return SolutionInfo(instance.solution_);}
 		void SetSolution(SolutionInfo& solution) {instance.solution_ = solution.GetInstance();}
-	    int GetTotalPopulationSize() {return instance.total_population_size_;}
+	    int GetTotalPopulationSize() const {return instance.total_population_size_;}
 	    void SetTotalPopulationSize(int totalPopulationSize) {instance.total_population_size_ = totalPopulationSize;}
 };
 

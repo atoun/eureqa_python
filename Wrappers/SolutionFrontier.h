@@ -28,7 +28,7 @@ class SolutionInfo
 		SolutionInfo(std::string text) : instance(text) {}
 
 		// Constructor taking eureqa::solution_info as the parameter (C++ usage)
-		SolutionInfo(eureqa::solution_info& instance) {this->instance = instance;}
+		SolutionInfo(const eureqa::solution_info& instance) {this->instance = instance;}
 
 		// Getter for the eureqa::solution_info's instance (C++ usage)
 		const eureqa::solution_info& GetInstance() {return instance;}

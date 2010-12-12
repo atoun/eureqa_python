@@ -27,8 +27,8 @@ class SearchOptions
 		// Wrapper for eureqa::search_option's constructor
 		SearchOptions(std::string searchRelationship) : instance(searchRelationship) {}
 
-		// Getter for the eureqa::search_options' instance
-		eureqa::search_options& GetInstance() {return instance;}
+		// Getter for the eureqa::search_options' instance  (C++ usage)
+		const eureqa::search_options& GetInstance() {return instance;}
 
 		// Wrapper for function testing if the options are entered and in range
 		bool IsValid() const {return instance.is_valid();}
@@ -41,35 +41,35 @@ class SearchOptions
 		std::string Summary() const {return instance.summary();}
 
 		// Getters and setters for eureqa::search_options's public members
-		std::vector<std::string> GetBuildingBlocks() {return instance.building_blocks_;}
+		std::vector<std::string> GetBuildingBlocks() const {return instance.building_blocks_;}
 		void SetBuildingBlocks(std::vector<std::string> buildingBlocks) {instance.building_blocks_ = buildingBlocks;}
-		int GetFitnessMetric() {return instance.fitness_metric_;}
+		int GetFitnessMetric() const {return instance.fitness_metric_;}
 		void SetFitnessMetric(int fitnessMetric) {instance.fitness_metric_ = fitnessMetric;}
-		std::string GetImplicitDerivativeDependencies() {return instance.implicit_derivative_dependencies_;}
+		std::string GetImplicitDerivativeDependencies() const {return instance.implicit_derivative_dependencies_;}
 		void SetImplicitDerivativeDependencies(std::string implicitDerivativeDependencies) {instance.implicit_derivative_dependencies_ = implicitDerivativeDependencies;}
-		int GetMaxDelaysPerVariable() {return instance.max_delays_per_variable_;}
+		int GetMaxDelaysPerVariable() const {return instance.max_delays_per_variable_;}
 		void SetMaxDelaysPerVariable(int maxDelaysPerVariable) {instance.max_delays_per_variable_ = maxDelaysPerVariable;}
-		float GetMaxHistoryFraction() {return instance.max_history_fraction_;}
+		float GetMaxHistoryFraction() const {return instance.max_history_fraction_;}
 		void SetMaxHistoryFraction(float maxHistoryFraction) {instance.max_history_fraction_ = maxHistoryFraction;}
-		int GetMinImplicitVariablesUsed() {return instance.min_implicit_variables_used_;}
+		int GetMinImplicitVariablesUsed() const {return instance.min_implicit_variables_used_;}
 		void SetMinImplicitVariablesUsed(int minImplicitVariablesUsed) {instance.min_implicit_variables_used_ = minImplicitVariablesUsed;}
-		float GetNormalizeFitnessBy() {return instance.normalize_fitness_by_;}
+		float GetNormalizeFitnessBy() const {return instance.normalize_fitness_by_;}
 		void SetNormalizeFitnessBy(float normalizeFitnessBy) {instance.normalize_fitness_by_ = normalizeFitnessBy;}
-		float GetPredictorCrossoverProbability() {return instance.predictor_crossover_probability_;}
+		float GetPredictorCrossoverProbability() const {return instance.predictor_crossover_probability_;}
 		void SetPredictorCrossoverProbability(float predictorCrossoverProbability) {instance.predictor_crossover_probability_ = predictorCrossoverProbability;}
-		float GetPredictorMutationProbability() {return instance.predictor_mutation_probability_;}
+		float GetPredictorMutationProbability() const {return instance.predictor_mutation_probability_;}
 		void SetPredictorMutationProbability(float predictorMutationProbability) {instance.predictor_mutation_probability_ = predictorMutationProbability;}
-		int GetPredictorPopulationSize() {return instance.predictor_population_size_;}
+		int GetPredictorPopulationSize() const {return instance.predictor_population_size_;}
 		void SetPredictorPopulationSize(int predictorPopulationSize) {instance.predictor_population_size_ = predictorPopulationSize;}
-		std::string GetSearchRelationship() {return instance.search_relationship_;}
+		std::string GetSearchRelationship() const {return instance.search_relationship_;}
 		void SetSearchRelationship(std::string searchRelationship) {instance.search_relationship_ = searchRelationship;}
-		float GetSolutionCrossoverProbability() {return instance.solution_crossover_probability_;}
+		float GetSolutionCrossoverProbability() const {return instance.solution_crossover_probability_;}
 		void SetSolutionCrossoverProbability(float solutionCrossoverProbability) {instance.solution_crossover_probability_ = solutionCrossoverProbability;}
-		float GetSolutionMutationProbability() {return instance.solution_mutation_probability_;}
+		float GetSolutionMutationProbability() const {return instance.solution_mutation_probability_;}
 		void SetSolutionMutationProbability(float solutionMutationProbability) {instance.solution_mutation_probability_ = solutionMutationProbability;}
-		int GetSolutionPopulationSize() {return instance.solution_population_size_;}
+		int GetSolutionPopulationSize() const {return instance.solution_population_size_;}
 		void SetSolutionPopulationSize(int solutionPopulationSize) {instance.solution_population_size_ = solutionPopulationSize;}
-		int GetTrainerPopulationSize() {return instance.trainer_population_size_;}
+		int GetTrainerPopulationSize() const {return instance.trainer_population_size_;}
 		void SetTrainerPopulationSize(int trainerPopulationSize) {instance.trainer_population_size_ = trainerPopulationSize;}
 };
 

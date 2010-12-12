@@ -8,7 +8,7 @@
 #include "ServerInfo.h"
 #include "SolutionFrontier.h"
 
-//TODO: const getters
+#include "EureqaServerController.h"
 
 
 BOOST_PYTHON_MODULE(eureqa_python)

@@ -24,11 +24,8 @@ class ServerInfo
 		// Wrapper for default constructor
 		ServerInfo() {}
 
-		// TODO: remove ...
-		// ServerInfo(const eureqa::server_info& instance) {this->instance = instance;}
-
-		// TODO: description
-		eureqa::server_info& GetInstance() {return instance;}
+		// Getter for the eureqa::server_info's instance (C++ usage)
+		const eureqa::server_info& GetInstance() {return instance;}
 
 		// Wrapper for function testing if info is entered and in range
 		bool IsValid() {return instance.is_valid();}
@@ -37,13 +34,13 @@ class ServerInfo
 		std::string Summary() {return instance.summary();}
 
 		// Getters and setters for eureqa::server_info's public members
-		int GetCpuCores() {return instance.cpu_cores_;}
+		int GetCpuCores() const {return instance.cpu_cores_;}
 		void SetCpuCores(int cpu_cores) {instance.cpu_cores_ = cpu_cores;}
-		double GetEureqaVersion() {return instance.eureqa_version_;}
+		double GetEureqaVersion() const {return instance.eureqa_version_;}
 		void SetEureqaVersion(double eureqa_version) {instance.eureqa_version_ = eureqa_version;}
-		std::string GetHostname() {return instance.hostname_;}
+		std::string GetHostname() const {return instance.hostname_;}
 		void SetHostname(std::string hostname) {instance.hostname_ = hostname;}
-		std::string GetOperatingSystem() {return instance.operating_system_;}
+		std::string GetOperatingSystem() const {return instance.operating_system_;}
 		void SetOperatingSystem(std::string operating_system) {instance.operating_system_ = operating_system;}
 };
 

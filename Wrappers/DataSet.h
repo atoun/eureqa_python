@@ -26,7 +26,8 @@ class DataSet
 		DataSet(std::string path) : instance(path) {}
 		DataSet(int rows, int cols) : instance(rows,cols) {}
 
-		// Getter for eureqa::data_set's instance
+		// Getter for eureqa::data_set's instance (C++ usage)
+		// The return value is not 'const' due to the 'swap' function
 		eureqa::data_set& GetInstance() {return instance;}
 
 		// Wrapper for function testing if the data set is sized and filled in correctly
@@ -53,15 +54,15 @@ class DataSet
 		std::string Summary() const {return instance.summary();}
 
 		// Getters and setters for eureqa::data_set's public members
-		std::vector<int> GetR() {return instance.r_;}
+		std::vector<int> GetR() const {return instance.r_;}
 		void SetR(std::vector<int> r) {instance.r_ = r;}
-		std::vector<float> GetT() {return instance.t_;}
+		std::vector<float> GetT() const {return instance.t_;}
 		void SetT(std::vector<float> t) {instance.t_ = t;}
-		std::vector<float> GetW() {return instance.w_;}
+		std::vector<float> GetW() const {return instance.w_;}
 		void SetW(std::vector<float> w) {instance.w_ = w;}
-		std::vector<std::string> GetXSymbols() {return instance.X_symbols_;}
+		std::vector<std::string> GetXSymbols() const {return instance.X_symbols_;}
 		void SetXSymbols(std::vector<std::string> xSymbols) {instance.X_symbols_ = xSymbols;}
-		std::vector<std::string> GetYSymbols() {return instance.Y_symbols_;}
+		std::vector<std::string> GetYSymbols() const {return instance.Y_symbols_;}
 		void SetYSymbols(std::vector<std::string> ySymbols) {instance.Y_symbols_ = ySymbols;}
 };
 

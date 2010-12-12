@@ -1,5 +1,5 @@
 /*
- * TODO: description
+ *  Wrapper class for eureqa::connection
  *
  *  Created on: Nov 21, 2010
  *      Author: MF
@@ -10,7 +10,7 @@
 
 
 #include <boost/foreach.hpp>
-#define foreach  BOOST_FOREACH
+#define foreach BOOST_FOREACH
 
 #include <eureqa/connection.h>
 
@@ -53,6 +53,7 @@ class Connection
 
 		// Wrappers for constructors
 		Connection() {}
+		Connection(const Connection& connection) {}
 		Connection(std::string hostname) : instance(hostname, eureqa::default_port_tcp) {}
 		Connection(std::string hostname, int port) : instance(hostname, port) {}
 		// TODO: connection(boost::asio::ioconnection(boost::asio::io_service& io_service);_service& io_service);
@@ -81,21 +82,21 @@ class Connection
 		//  Wrapper for function sending server a population
 		bool SendPopulation(std::vector<SolutionInfo> individuals) {return false;} //TODO: make it inline
 
-		//  Wrapper for function querying server for information on the search progress
+		//  Wrapper for function querying server for information on the search progress (NOTE change concerning the return value)
 		boost::tuple<bool, SearchProgress> QueryProgress()
 		{
 			eureqa::search_progress searchProgress;
 			return boost::make_tuple(instance.query_progress(searchProgress), SearchProgress(searchProgress));
 		}
 
-		//  Wrapper for function querying server for its system information
+		//  Wrapper for function querying server for its system information (NOTE change concerning the return value)
 		boost::tuple<bool, ServerInfo> QueryServerInfo()
 		{
 			eureqa::server_info serverInfo;
 			return boost::make_tuple(instance.query_server_info(serverInfo), ServerInfo(serverInfo));
 		}
 
-		//  Wrappers for functions querying server for random individuals from its population
+		//  Wrappers for functions querying server for random individuals from its population (NOTE change concerning the return value)
 		boost::tuple<bool, SolutionInfo> QueryIndividuals()
 		{
 			eureqa::solution_info solutionInfo;
@@ -117,10 +118,24 @@ class Connection
 			return boost::make_tuple(firstElement, secondElement);
 		}
 
-		//  Wrappers for function querying server for the current population
-		boost::tuple<int> QueryPopulation(); //TODO: make it inline
+		//  Wrappers for function querying server for the current population (NOTE change concerning the return value)
+		boost::tuple<bool, std::vector<SolutionInfo> > QueryPopulation()
+		{
+			std::vector<eureqa::solution_info> individuals;
 
-		//  Wrapper for function querying the servers local solution frontier
+			std::vector<SolutionInfo> secondElement;
+			bool firstElement;
+
+			firstElement = instance.query_population(individuals);
+
+			if(firstElement)
+				foreach(eureqa::solution_info solutionInfo, individuals)
+					secondElement.push_back(SolutionInfo(solutionInfo));
+
+			return boost::make_tuple(firstElement, secondElement);
+		}
+
+		//  Wrapper for function querying the servers local solution frontier (NOTE change concerning the return value)
 		boost::tuple<bool, SolutionFrontier> QueryFrontier()
 		{
 			eureqa::solution_frontier solutionFrontier;
@@ -132,9 +147,30 @@ class Connection
 		bool PauseSearch() {return instance.pause_search();}
 		bool EndSearch() {return instance.end_search();}
 
-		//  Wrappers for functions calculating the solution info on the server
-		boost::tuple<bool, SolutionInfo> CalcSolutionInfo(SolutionInfo solutionInfo); //TODO:
-		boost::tuple<bool, SolutionInfo> CalcSolutionInfo(std::vector<SolutionInfo> individuals);//TODO:
+		//  Wrappers for functions calculating the solution info on the server (NOTE change concerning the return value)
+		boost::tuple<bool, SolutionInfo> CalcSolutionInfo(SolutionInfo solutionInfo)
+		{
+			eureqa::solution_info _solutionInfo = solutionInfo.GetInstance();
+			return boost::make_tuple(instance.calc_solution_info(_solutionInfo), SolutionInfo(_solutionInfo));
+		}
+		boost::tuple<bool, std::vector<SolutionInfo> > CalcSolutionInfo(std::vector<SolutionInfo> individuals)
+		{
+			std::vector<eureqa::solution_info> _individuals;
+
+			foreach(SolutionInfo solutionInfo, individuals)
+				_individuals.push_back(solutionInfo.GetInstance());
+
+			std::vector<SolutionInfo> secondElement;
+			bool firstElement;
+
+			firstElement = instance.query_population(_individuals);
+
+			if(firstElement)
+				foreach(eureqa::solution_info solutionInfo, _individuals)
+					secondElement.push_back(SolutionInfo(solutionInfo));
+
+			return boost::make_tuple(firstElement, secondElement);
+		}
 
 		// Wrapper for functions returning a short description of the connection
 		std::string Summary() const {return instance.summary();}

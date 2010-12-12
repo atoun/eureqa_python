@@ -194,6 +194,15 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.add_property("x_symbols", &DataSet::GetXSymbols, &DataSet::SetXSymbols)
 	.add_property("y_symbols", &DataSet::GetYSymbols, &DataSet::SetYSymbols)
 	;
+
+	// LastResult - TODO:
+
+	// Connection
+	boost::python::class_<Connection>("Connection")
+	.def(boost::python::init<std::string>())
+	.def(boost::python::init<std::string, int>())
+	.def("is_connected", &Connection::IsConnected)
+	;
 }
 
 

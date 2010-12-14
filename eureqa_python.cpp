@@ -158,8 +158,8 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	;
 
 	// DataSet -- function pointers which enable overloading
-    bool (DataSet::*ImportAscii_1)(std::string path) = &DataSet::ImportAscii;
-    bool (DataSet::*ImportAscii_2)(std::string path, std::string& errorMessage) = &DataSet::ImportAscii;
+    bool (DataSet::*ImportAscii_1)(std::string) = &DataSet::ImportAscii;
+    bool (DataSet::*ImportAscii_2)(std::string, std::string) = &DataSet::ImportAscii;
 
 	// DataSet
 	boost::python::class_<DataSet>("DataSet")
@@ -195,13 +195,57 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.add_property("y_symbols", &DataSet::GetYSymbols, &DataSet::SetYSymbols)
 	;
 
-	// LastResult - TODO:
+	// CommandResult
+	boost::python::class_<CommandResult>("CommandResult")
+	.def(boost::python::init<int, std::string>())
+	.def("get_value", &CommandResult::GetValue)
+	.def("set_value", &CommandResult::SetValue)
+	.def("get_message", &CommandResult::GetMessage)
+	.def("set_message", &CommandResult::SetMessage)
+	.add_property("value", &CommandResult::GetValue, &CommandResult::SetValue)
+	.add_property("message", &CommandResult::GetMessage, &CommandResult::SetMessage)
+	;
+
+	// Connection -- function pointers which enable overloading
+	bool (Connection::*SendIndividuals_1)(std::string) = &Connection::SendIndividuals;
+	bool (Connection::*SendIndividuals_2)(SolutionInfo) = &Connection::SendIndividuals;
+	bool (Connection::*SendIndividuals_3)(std::vector<SolutionInfo>) = &Connection::SendIndividuals;
+
+	boost::tuple<bool, SolutionInfo> (Connection::*QueryIndividuals_1)() = &Connection::QueryIndividuals;
+	boost::tuple<bool, std::vector<SolutionInfo> > (Connection::*QueryIndividuals_2)(unsigned int count) = &Connection::QueryIndividuals;
+
+	boost::tuple<bool, SolutionInfo> (Connection::*CalcSolutionInfo_1)(SolutionInfo) = &Connection::CalcSolutionInfo;
+	boost::tuple<bool, std::vector<SolutionInfo> > (Connection::*CalcSolutionInfo_2)(std::vector<SolutionInfo>) = &Connection::CalcSolutionInfo;
 
 	// Connection
 	boost::python::class_<Connection>("Connection")
 	.def(boost::python::init<std::string>())
 	.def(boost::python::init<std::string, int>())
 	.def("is_connected", &Connection::IsConnected)
+	.def("last_result", &Connection::LastResult)
+	.def("connect", &Connection::Connect)
+	.def("disconnect", &Connection::Disconnect)
+	.def("send_data", &Connection::SendData)
+	.def("send_data_location", &Connection::SendDataLocation)
+	.def("send_options", &Connection::SendOptions)
+	.def("send_individuals", SendIndividuals_1)
+	.def("send_individuals", SendIndividuals_2)
+	.def("send_individuals", SendIndividuals_3)
+	.def("send_population", &Connection::SendPopulation)
+	.def("query_progress", &Connection::QueryProgress)
+	.def("query_server_info", &Connection::QueryServerInfo)
+	.def("query_individuals", QueryIndividuals_1)
+	.def("query_individuals", QueryIndividuals_2)
+	.def("query_population", &Connection::QueryPopulation)
+	.def("query_frontier", &Connection::QueryFrontier)
+	.def("start_search", &Connection::StartSearch)
+	.def("pause_search", &Connection::PauseSearch)
+	.def("end_search", &Connection::EndSearch)
+	.def("calc_solution_info", CalcSolutionInfo_1)
+	.def("calc_solution_info", CalcSolutionInfo_2)
+	.def("summary", &Connection::Summary)
+	.def("remote_address", &Connection::RemoteAddress)
+	.def("remote_port", &Connection::RemotePort)
 	;
 }
 

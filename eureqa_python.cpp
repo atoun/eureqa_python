@@ -159,7 +159,7 @@ BOOST_PYTHON_MODULE(eureqa_python)
 
 	// DataSet -- function pointers which enable overloading
     bool (DataSet::*ImportAscii_1)(std::string) = &DataSet::ImportAscii;
-    bool (DataSet::*ImportAscii_2)(std::string, std::string) = &DataSet::ImportAscii;
+    bool (DataSet::*ImportAscii_2)(std::string, std::string&) = &DataSet::ImportAscii;
 
 	// DataSet
 	boost::python::class_<DataSet>("DataSet")
@@ -217,13 +217,17 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	boost::tuple<bool, SolutionInfo> (Connection::*CalcSolutionInfo_1)(SolutionInfo) = &Connection::CalcSolutionInfo;
 	boost::tuple<bool, std::vector<SolutionInfo> > (Connection::*CalcSolutionInfo_2)(std::vector<SolutionInfo>) = &Connection::CalcSolutionInfo;
 
+	bool (Connection::*Connect_1)(std::string) = &Connection::Connect;
+	bool (Connection::*Connect_2)(std::string, unsigned int) = &Connection::Connect;
+
 	// Connection
 	boost::python::class_<Connection>("Connection")
 	.def(boost::python::init<std::string>())
 	.def(boost::python::init<std::string, int>())
 	.def("is_connected", &Connection::IsConnected)
 	.def("last_result", &Connection::LastResult)
-	.def("connect", &Connection::Connect)
+	.def("connect", Connect_1)
+	.def("connect", Connect_2)
 	.def("disconnect", &Connection::Disconnect)
 	.def("send_data", &Connection::SendData)
 	.def("send_data_location", &Connection::SendDataLocation)

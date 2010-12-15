@@ -49,6 +49,20 @@ class Connection
 
 		eureqa::connection instance;
 
+		// Utility functions
+		std::vector<SolutionInfo> CreateWrappersVector(std::vector<eureqa::solution_info> input)
+		{
+			std::vector<SolutionInfo> output;
+			foreach(eureqa::solution_info solutionInfo, input)
+				output.push_back(SolutionInfo(solutionInfo));
+		}
+		std::vector<eureqa::solution_info> CreateEureqaVector(std::vector<SolutionInfo> input)
+		{
+			std::vector<eureqa::solution_info> output;
+			foreach(SolutionInfo solutionInfo, input)
+				output.push_back(eureqa::solution_info(solutionInfo.GetInstance()));
+		}
+
 	public:
 
 		// Wrappers for constructors
@@ -63,7 +77,8 @@ class Connection
 		CommandResult LastResult() {return CommandResult(instance.last_result());}
 
 		// Wrappers for functions opening a network connection to a eureqa server
-		bool Connect(std::string hostname, int port) {return instance.connect(hostname, port);}
+		bool Connect(std::string hostname) {return instance.connect(hostname, eureqa::default_port_tcp);}
+		bool Connect(std::string hostname, unsigned int port) {return instance.connect(hostname, port);}
 		void Disconnect() {instance.disconnect();}
 
 		// Wrappers for functions sending server the data set over the network

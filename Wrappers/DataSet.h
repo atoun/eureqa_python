@@ -47,7 +47,7 @@ class DataSet
 
 		// Wrappers for functions importing plain ascii text files with single line header
 		bool ImportAscii(std::string path) {return instance.import_ascii(path);}
-		bool ImportAscii(std::string path, std::string errorMessage) {return instance.import_ascii(path, errorMessage);}
+		bool ImportAscii(std::string path, std::string& errorMessage) {return instance.import_ascii(path, errorMessage);}
 		// TODO: boost::tuple!
 		void ExportAscii(std::string path) {instance.export_ascii(path);}
 

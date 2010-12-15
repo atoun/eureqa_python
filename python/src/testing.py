@@ -5,6 +5,7 @@ Created on Oct 29, 2010
 '''
 import unittest
 import eureqa_python
+import os
 
 # TODO: excpetions while type conversion
 
@@ -249,7 +250,17 @@ class Test(unittest.TestCase):
         
         self.assertEquals(data_set.empty(), True)
         
-        # TODO: check len(x_symbols)     
+        #TODO: check len(x_symbols)     
+        
+    def testConnection(self):
+        connection = eureqa_python.Connection()
+        
+        server_running = (os.system('lsof | grep eureqa_server > /dev/null') == 0) 
+        self.assertEquals(server_running, connection.connect('127.0.0.1'))
+        
+        self.assertEquals(server_running, connection.is_connected())
+        
+        
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

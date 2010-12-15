@@ -20,6 +20,8 @@
 #include <unistd.h>
 #endif /* linux */
 
+// TODO: chmod on eureqa_server
+
 
 //! Utility function converting arbitrary type to a string
 template <class T> std::string ToString(const T& value)

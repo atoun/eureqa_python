@@ -32,15 +32,18 @@ template <class T> std::string ToString(const T& value)
 }
 
 
-class EureqaServerController: private boost::noncopyable
+class EureqaServerCommunicator: private boost::noncopyable
 {
 	public:
 
 		//! Getter for the class' instance
-		static EureqaServerController* GetInstance() {return initialized ? &instance : NULL;}
+		static EureqaServerCommunicator* GetInstance() {return initialized ? &instance : NULL;}
 
 		//! Function reporting that it was impossible to connect with Eureqa's server
 		void ReportServerError() {serverStarter->ReportServerError();}
+
+		//! Function which sets Eureqa's server's binary path
+		void SetBinaryPath(std::string binaryPath) {serverStarter->SetBinaryPath(binaryPath);}
 
 		//! Function starting Eureqa's server binary (if no Eureqa's server is already started)
 		void StartServer() {serverStarter->StartServer();}
@@ -54,7 +57,7 @@ class EureqaServerController: private boost::noncopyable
 		/*!
 		 * Default constructor - made private, since the class is the Singleton
 		 */
-		EureqaServerController() :
+		EureqaServerCommunicator() :
 		#ifdef linux
 			serverStarter(new LinuxServerStarter())
 		#endif /* linux */
@@ -66,13 +69,13 @@ class EureqaServerController: private boost::noncopyable
 		/*!
 		 * Default destructor - made private, since the class is the Singleton
 		 */
-		~EureqaServerController() {initialized = false;}
+		~EureqaServerCommunicator() {initialized = false;}
 
 		//! Flag indicating if the class has been initialized
 		static bool initialized;
 
 		//! Class' instance
-		static EureqaServerController instance;
+		static EureqaServerCommunicator instance;
 
 		//! Internal class responsible for starting Eureqa's server
 		class ServerStarter
@@ -119,10 +122,10 @@ class EureqaServerController: private boost::noncopyable
 				//! Default destructor
 				~LinuxServerStarter()
 				{
-					if (this->serverStarted)
+					if (serverStarted)
 					try
 					{
-						this->StopServer();
+						StopServer();
 					}
 					catch (...)
 					{
@@ -303,8 +306,21 @@ class EureqaServerController: private boost::noncopyable
  * Singleton's initialization
  */
 
-bool EureqaServerController::initialized;
-EureqaServerController EureqaServerController::instance;
+bool EureqaServerCommunicator::initialized;
+EureqaServerCommunicator EureqaServerCommunicator::instance;
 
+
+class EureqaServerController
+{
+	public:
+
+		static bool StartServer(std::string binaryPath)
+		{
+			EureqaServerCommunicator::GetInstance()->SetBinaryPath(binaryPath);
+			EureqaServerCommunicator::GetInstance()->StartServer();
+		}
+
+		static bool StopServer() {EureqaServerCommunicator::GetInstance()->StopServer();}
+};
 
 #endif /* SERVERMANAGER_H_ */

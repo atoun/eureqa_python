@@ -219,6 +219,7 @@ BOOST_PYTHON_MODULE(eureqa_python)
 
 	bool (Connection::*Connect_1)(std::string) = &Connection::Connect;
 	bool (Connection::*Connect_2)(std::string, unsigned int) = &Connection::Connect;
+	bool (Connection::*Connect_3)(unsigned int) = &Connection::Connect;
 
 	// Connection
 	boost::python::class_<Connection>("Connection")
@@ -228,6 +229,7 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def("last_result", &Connection::LastResult)
 	.def("connect", Connect_1)
 	.def("connect", Connect_2)
+	.def("connect", Connect_3)
 	.def("disconnect", &Connection::Disconnect)
 	.def("send_data", &Connection::SendData)
 	.def("send_data_location", &Connection::SendDataLocation)
@@ -250,6 +252,14 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def("summary", &Connection::Summary)
 	.def("remote_address", &Connection::RemoteAddress)
 	.def("remote_port", &Connection::RemotePort)
+	;
+
+	// EureqaServerController
+	boost::python::class_<EureqaServerController>("EureqaServerController")
+	.def("start_server", EureqaServerController::StartServer)
+	.staticmethod("start_server")
+	.def("stop_server", EureqaServerController::StopServer)
+	.staticmethod("stop_server")
 	;
 }
 

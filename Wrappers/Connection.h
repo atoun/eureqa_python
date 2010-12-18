@@ -8,7 +8,7 @@
 #ifndef CONNECTION_H_
 #define CONNECTION_H_
 
-
+#include <boost/thread/thread.hpp>
 #include <boost/foreach.hpp>
 #define foreach BOOST_FOREACH
 
@@ -20,6 +20,42 @@
 #include "ServerInfo.h"
 #include "SolutionFrontier.h"
 
+#include "../EureqaServerController.h"
+
+#define CONN_TIMEOUT 30
+#define LOCALHOST "127.0.0.1"
+
+
+//! ConnectionChecker class
+/*
+ * It tries to establish connection with an Eureqa's server for a certain defined amount of
+ * time given in CONN_TIMEOUT (used only if the server's address is localhost)
+ */
+class ConnectionChecker
+{
+
+	public:
+
+		//! Parameterized constructor
+		/*
+		 * \param connection reference to the Eureqa's server's connection
+		 */
+		ConnectionChecker(eureqa::connection& connection) : connection(connection) {}
+
+		//! Overriding function for the '()' operator
+		void operator ()() {while(!connection.connect(LOCALHOST));}
+
+	private:
+
+		//! Constructor
+		/*
+		 * Default constructor - made private to allow only parameterized initialization
+		 */
+		ConnectionChecker();
+
+		//! Reference to the Eureqa's server's connection
+		eureqa::connection& connection;
+};
 
 class CommandResult
 {
@@ -80,6 +116,24 @@ class Connection
 		bool Connect(std::string hostname) {return instance.connect(hostname, eureqa::default_port_tcp);}
 		bool Connect(std::string hostname, unsigned int port) {return instance.connect(hostname, port);}
 		void Disconnect() {instance.disconnect();}
+
+		// Function opening a newtork connection to a eureqa server which operates
+		// on localhost
+		bool Connect(unsigned int timeout)
+		{
+		    /*
+		     * Since it can take longer for Eureqa's server to start, the working thread will attempt
+		     * to 'ping' the server for a period of time
+		     */
+			ConnectionChecker connectionChecker(instance);
+			boost::thread connectionCheckerThread(boost::ref(connectionChecker));
+			if(!connectionCheckerThread.timed_join(boost::posix_time::seconds(timeout)))
+			{
+				EureqaServerCommunicator::GetInstance()->ReportServerError();
+				return false;
+			}
+			return true;
+		}
 
 		// Wrappers for functions sending server the data set over the network
 		// or telling it to load it from a network file

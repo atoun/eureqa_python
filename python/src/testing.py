@@ -252,15 +252,21 @@ class Test(unittest.TestCase):
         
         #TODO: check len(x_symbols)     
         
-    def testConnection(self):
+    
+    def testServerController(self):
+        eureqa_python.EureqaServerController.start_server('/home/marcin/Portable/eureqa/server/linux/eureqa_server')
+        eureqa_python.EureqaServerController.stop_server()
+    
+    def testConnectionBasic(self):        
+        eureqa_python.EureqaServerController.start_server('/home/marcin/Portable/eureqa/server/linux/eureqa_server')
+        
         connection = eureqa_python.Connection()
-        
-        server_running = (os.system('lsof | grep eureqa_server > /dev/null') == 0) 
-        self.assertEquals(server_running, connection.connect('127.0.0.1'))
-        
-        self.assertEquals(server_running, connection.is_connected())
+        self.assertTrue(connection.connect(2))
+        self.assertTrue(connection.is_connected())
+        eureqa_python.EureqaServerController.stop_server()
         
         
+    
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

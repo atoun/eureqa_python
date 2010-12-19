@@ -22,7 +22,6 @@
 
 #include "../EureqaServerController.h"
 
-#define CONN_TIMEOUT 30
 #define LOCALHOST "127.0.0.1"
 
 
@@ -86,13 +85,13 @@ class Connection
 		eureqa::connection instance;
 
 		// Utility functions
-		std::vector<SolutionInfo> CreateWrappersVector(std::vector<eureqa::solution_info> input)
+		std::vector<SolutionInfo> CreateWrappersVector(std::vector<eureqa::solution_info>& input)
 		{
 			std::vector<SolutionInfo> output;
 			foreach(eureqa::solution_info solutionInfo, input)
 				output.push_back(SolutionInfo(solutionInfo));
 		}
-		std::vector<eureqa::solution_info> CreateEureqaVector(std::vector<SolutionInfo> input)
+		std::vector<eureqa::solution_info> CreateEureqaVector(std::vector<SolutionInfo>& input)
 		{
 			std::vector<eureqa::solution_info> output;
 			foreach(SolutionInfo solutionInfo, input)
@@ -106,7 +105,6 @@ class Connection
 		Connection(const Connection& connection) {}
 		Connection(std::string hostname) : instance(hostname, eureqa::default_port_tcp) {}
 		Connection(std::string hostname, int port) : instance(hostname, port) {}
-		// TODO: connection(boost::asio::ioconnection(boost::asio::io_service& io_service);_service& io_service);
 
 		// Wrappers for basic connection information
 		bool IsConnected() {return instance.is_connected();}
@@ -146,10 +144,10 @@ class Connection
 		// Wrappers for functions sending server individuals to insert into its population
 		bool SendIndividuals(std::string text) {return instance.send_individuals(text);}
 		bool SendIndividuals(SolutionInfo solutionInfo) {return instance.send_individuals(solutionInfo.GetInstance());}
-		bool SendIndividuals(std::vector<SolutionInfo> individuals) {return false;} //TODO: make it inline
+		bool SendIndividuals(std::vector<SolutionInfo> individuals) {return instance.send_individuals(CreateEureqaVector(individuals));}
 
 		//  Wrapper for function sending server a population
-		bool SendPopulation(std::vector<SolutionInfo> individuals) {return false;} //TODO: make it inline
+		bool SendPopulation(std::vector<SolutionInfo> individuals) {return instance.send_population(CreateEureqaVector(individuals));}
 
 		//  Wrapper for function querying server for information on the search progress (NOTE change concerning the return value)
 		boost::tuple<bool, SearchProgress> QueryProgress()
@@ -174,15 +172,8 @@ class Connection
 		boost::tuple<bool, std::vector<SolutionInfo> > QueryIndividuals(unsigned int count)
 		{
 			std::vector<eureqa::solution_info> individuals;
-
-			std::vector<SolutionInfo> secondElement;
-			bool firstElement;
-
-			firstElement = instance.query_individuals(individuals, count);
-
-			if(firstElement)
-				foreach(eureqa::solution_info solutionInfo, individuals)
-					secondElement.push_back(SolutionInfo(solutionInfo));
+			bool firstElement = instance.query_individuals(individuals, count);
+			std::vector<SolutionInfo> secondElement = CreateWrappersVector(individuals);
 
 			return boost::make_tuple(firstElement, secondElement);
 		}
@@ -191,15 +182,8 @@ class Connection
 		boost::tuple<bool, std::vector<SolutionInfo> > QueryPopulation()
 		{
 			std::vector<eureqa::solution_info> individuals;
-
-			std::vector<SolutionInfo> secondElement;
-			bool firstElement;
-
-			firstElement = instance.query_population(individuals);
-
-			if(firstElement)
-				foreach(eureqa::solution_info solutionInfo, individuals)
-					secondElement.push_back(SolutionInfo(solutionInfo));
+			bool firstElement = instance.query_population(individuals);
+			std::vector<SolutionInfo> secondElement = CreateWrappersVector(individuals);
 
 			return boost::make_tuple(firstElement, secondElement);
 		}
@@ -224,19 +208,9 @@ class Connection
 		}
 		boost::tuple<bool, std::vector<SolutionInfo> > CalcSolutionInfo(std::vector<SolutionInfo> individuals)
 		{
-			std::vector<eureqa::solution_info> _individuals;
-
-			foreach(SolutionInfo solutionInfo, individuals)
-				_individuals.push_back(solutionInfo.GetInstance());
-
-			std::vector<SolutionInfo> secondElement;
-			bool firstElement;
-
-			firstElement = instance.query_population(_individuals);
-
-			if(firstElement)
-				foreach(eureqa::solution_info solutionInfo, _individuals)
-					secondElement.push_back(SolutionInfo(solutionInfo));
+			std::vector<eureqa::solution_info> _individuals = CreateEureqaVector(individuals);
+			bool firstElement = instance.query_population(_individuals);
+			std::vector<SolutionInfo> secondElement = CreateWrappersVector(_individuals);
 
 			return boost::make_tuple(firstElement, secondElement);
 		}
@@ -249,3 +223,11 @@ class Connection
 
 
 #endif /* CONNECTION_H_ */
+
+
+/**
+ *
+ * Eventual TODO:
+ * connection(boost::asio::ioconnection(boost::asio::io_service& io_service);_service& io_service);
+ *
+ */

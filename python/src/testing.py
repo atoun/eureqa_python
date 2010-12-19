@@ -7,8 +7,6 @@ import unittest
 import eureqa_python
 import os
 
-# TODO: excpetions while type conversion
-
 class Test(unittest.TestCase):
 
     def testServerInfo(self):
@@ -39,7 +37,7 @@ class Test(unittest.TestCase):
         self.assertEqual(search_progress.generations, 1)
         
         search_progress.generations_per_sec = 2
-        # TODO: check it
+        # TODO: check it!
         # self.assertEqual(search_progress.generations_per_sec, 2)
 
         search_progress.evaluations = 3
@@ -250,7 +248,7 @@ class Test(unittest.TestCase):
         
         self.assertEquals(data_set.empty(), True)
         
-        #TODO: check len(x_symbols)     
+        #TODO: check len(x_symbols)!    
         
     
     def testServerController(self):
@@ -265,7 +263,8 @@ class Test(unittest.TestCase):
         self.assertTrue(connection.is_connected())
         eureqa_python.EureqaServerController.stop_server()
         
-        
+# TODO:
+# - exceptions during conversion       
     
         
 if __name__ == "__main__":

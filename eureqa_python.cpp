@@ -157,10 +157,6 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.add_property("total_population_size", &SearchProgress::GetTotalPopulationSize, &SearchProgress::SetTotalPopulationSize)
 	;
 
-	// DataSet -- function pointers which enable overloading
-    bool (DataSet::*ImportAscii_1)(std::string) = &DataSet::ImportAscii;
-    bool (DataSet::*ImportAscii_2)(std::string, std::string&) = &DataSet::ImportAscii;
-
 	// DataSet
 	boost::python::class_<DataSet>("DataSet")
 	.def(boost::python::init<std::string>())
@@ -174,8 +170,8 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def("swap", &DataSet::Swap)
 	.def("resize", &DataSet::Resize)
 	.def("empty", &DataSet::Empty)
-	.def("import_ascii", ImportAscii_1)
-	.def("import_ascii", ImportAscii_2)
+	.def("import_ascii", &DataSet::ImportAscii)
+	.def("import_ascii_err", &DataSet::ImportAsciiErr)
 	.def("export_ascii", &DataSet::ExportAscii)
 	.def("summary", &DataSet::Summary)
 	.def("get_r", &DataSet::GetR)

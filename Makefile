@@ -1,3 +1,5 @@
+#TODO: header dependencies!
+
 CC		=	g++ -g -fPIC
 
 BOOST_INC	=	~/Portable/boost/include

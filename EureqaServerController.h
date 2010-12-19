@@ -20,7 +20,6 @@
 #include <unistd.h>
 #endif /* linux */
 
-// TODO: chmod on eureqa_server
 
 
 //! Utility function converting arbitrary type to a string
@@ -191,6 +190,8 @@ class EureqaServerCommunicator: private boost::noncopyable
 
 						if(outputBuffer != '$')
 							throw "Cannot run server's binary - file's already in use or doesn't exist";
+
+						// TODO: Appropriate permissions (chmod)!
 					}
 					else
 					{

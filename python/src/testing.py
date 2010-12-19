@@ -263,6 +263,7 @@ class Test(unittest.TestCase):
         self.assertTrue(connection.is_connected())
         eureqa_python.EureqaServerController.stop_server()
         
+        
 # TODO:
 # - exceptions during conversion       
     

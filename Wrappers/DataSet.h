@@ -12,7 +12,6 @@
 
 #include <eureqa/data_set.h>
 
-
 class DataSet
 {
 	private:
@@ -47,7 +46,7 @@ class DataSet
 
 		// Wrappers for functions importing plain ascii text files with single line header
 		bool ImportAscii(std::string path) {return instance.import_ascii(path);}
-		boost::tuple<bool, std::string> ImportAsciiErr(std::string path)
+		boost::python::tuple ImportAsciiErr(std::string path)
 		{
 			/*
 			 * Since there are no references in Python, the error message is returned
@@ -56,7 +55,7 @@ class DataSet
 			std::string secondElement;
 			bool firstElement = instance.import_ascii(path, secondElement);
 
-			return boost::make_tuple(firstElement, secondElement);
+			return boost::python::make_tuple(firstElement, secondElement);
 		}
 		void ExportAscii(std::string path) {instance.export_ascii(path);}
 

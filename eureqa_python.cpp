@@ -28,6 +28,9 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def(boost::python::vector_indexing_suite<std::vector<float> >())
 	;
 
+	boost::python::class_<boost::tuple<bool, std::string> >("TupleBoolString")
+	;
+
 	// SearchOptions
 	boost::python::class_<SearchOptions>("SearchOptions")
 	.def(boost::python::init<std::string>())

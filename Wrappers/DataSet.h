@@ -52,10 +52,10 @@ class DataSet
 			 * Since there are no references in Python, the error message is returned
 			 * as a part of a tuple
 			 */
-			std::string secondElement;
-			bool firstElement = instance.import_ascii(path, secondElement);
+			std::string output;
+			bool result = instance.import_ascii(path, output);
 
-			return boost::python::make_tuple(firstElement, secondElement);
+			return boost::python::make_tuple(result, output);
 		}
 		void ExportAscii(std::string path) {instance.export_ascii(path);}
 
@@ -84,8 +84,6 @@ class DataSet
  * Probable TODO list:
  * boost::numeric::ublas::matrix<float> X_; // data values
  * boost::numeric::ublas::matrix<float> Y_; // special values (reserved)
- * float& operator ()(int i, int j)       { return X_(i,j); }
- * const float& operator ()(int i, int j) const { return X_(i,j); }
  *
  */
 
@@ -96,5 +94,7 @@ class DataSet
  * bool import_ascii(std::istream& is);
  * bool import_ascii(std::istream& is, std::string& error_msg);
  * void export_ascii(std::ostream& os);
+ * float& operator ()(int i, int j) { return X_(i,j); }
+ * const float& operator ()(int i, int j) const { return X_(i,j); }
  *
  */

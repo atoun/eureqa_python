@@ -22,6 +22,8 @@
 
 #include "../EureqaServerController.h"
 
+#include <iostream> //TODO:
+
 #define LOCALHOST "127.0.0.1"
 
 
@@ -135,7 +137,7 @@ class Connection
 
 		// Wrappers for functions sending server the data set over the network
 		// or telling it to load it from a network file
-		bool SendData(DataSet data) {return instance.send_data_set(data.GetInstance());}
+		bool SendDataSet(DataSet data) {return instance.send_data_set(data.GetInstance());}
 		bool SendDataLocation(std::string path) {return instance.send_data_location(path);}
 
 		// Wrapper for functions sending server the search options
@@ -150,49 +152,53 @@ class Connection
 		bool SendPopulation(std::vector<SolutionInfo> individuals) {return instance.send_population(CreateEureqaVector(individuals));}
 
 		//  Wrapper for function querying server for information on the search progress (NOTE change concerning the return value)
-		boost::tuple<bool, SearchProgress> QueryProgress()
+		boost::python::tuple QueryProgress()
 		{
 			eureqa::search_progress searchProgress;
-			return boost::make_tuple(instance.query_progress(searchProgress), SearchProgress(searchProgress));
+			bool result = instance.query_progress(searchProgress);
+			return boost::python::make_tuple(result, SearchProgress(searchProgress));
 		}
 
 		//  Wrapper for function querying server for its system information (NOTE change concerning the return value)
-		boost::tuple<bool, ServerInfo> QueryServerInfo()
+		boost::python::tuple QueryServerInfo()
 		{
 			eureqa::server_info serverInfo;
-			return boost::make_tuple(instance.query_server_info(serverInfo), ServerInfo(serverInfo));
+			bool result = instance.query_server_info(serverInfo);
+			return boost::python::make_tuple(result, ServerInfo(serverInfo));
 		}
 
 		//  Wrappers for functions querying server for random individuals from its population (NOTE change concerning the return value)
-		boost::tuple<bool, SolutionInfo> QueryIndividuals()
+		boost::python::tuple QueryIndividuals()
 		{
 			eureqa::solution_info solutionInfo;
-			return boost::make_tuple(instance.query_individuals(solutionInfo), SolutionInfo(solutionInfo));
+			bool result = instance.query_individuals(solutionInfo);
+			return boost::python::make_tuple(result, SolutionInfo(solutionInfo));
 		}
-		boost::tuple<bool, std::vector<SolutionInfo> > QueryIndividuals(unsigned int count)
+		boost::python::tuple QueryIndividuals(unsigned int count)
 		{
 			std::vector<eureqa::solution_info> individuals;
-			bool firstElement = instance.query_individuals(individuals, count);
-			std::vector<SolutionInfo> secondElement = CreateWrappersVector(individuals);
+			bool result = instance.query_individuals(individuals, count);
+			std::vector<SolutionInfo> output = CreateWrappersVector(individuals);
 
-			return boost::make_tuple(firstElement, secondElement);
+			return boost::python::make_tuple(result, output);
 		}
 
 		//  Wrappers for function querying server for the current population (NOTE change concerning the return value)
-		boost::tuple<bool, std::vector<SolutionInfo> > QueryPopulation()
+		boost::python::tuple QueryPopulation()
 		{
 			std::vector<eureqa::solution_info> individuals;
-			bool firstElement = instance.query_population(individuals);
-			std::vector<SolutionInfo> secondElement = CreateWrappersVector(individuals);
+			bool result = instance.query_population(individuals);
+			std::vector<SolutionInfo> output = CreateWrappersVector(individuals);
 
-			return boost::make_tuple(firstElement, secondElement);
+			return boost::python::make_tuple(result, output);
 		}
 
 		//  Wrapper for function querying the servers local solution frontier (NOTE change concerning the return value)
-		boost::tuple<bool, SolutionFrontier> QueryFrontier()
+		boost::python::tuple QueryFrontier()
 		{
 			eureqa::solution_frontier solutionFrontier;
-			return boost::make_tuple(instance.query_frontier(solutionFrontier), SolutionFrontier(solutionFrontier));
+			bool result = instance.query_frontier(solutionFrontier);
+			return boost::python::make_tuple(result, SolutionFrontier(solutionFrontier));
 		}
 
 		//  Wrappers for functions telling server to start/pause/end searching
@@ -201,18 +207,19 @@ class Connection
 		bool EndSearch() {return instance.end_search();}
 
 		//  Wrappers for functions calculating the solution info on the server (NOTE change concerning the return value)
-		boost::tuple<bool, SolutionInfo> CalcSolutionInfo(SolutionInfo solutionInfo)
+		boost::python::tuple CalcSolutionInfo(SolutionInfo solutionInfo)
 		{
 			eureqa::solution_info _solutionInfo = solutionInfo.GetInstance();
-			return boost::make_tuple(instance.calc_solution_info(_solutionInfo), SolutionInfo(_solutionInfo));
+			bool result = instance.calc_solution_info(_solutionInfo);
+			return boost::python::make_tuple(result, SolutionInfo(_solutionInfo));
 		}
-		boost::tuple<bool, std::vector<SolutionInfo> > CalcSolutionInfo(std::vector<SolutionInfo> individuals)
+		boost::python::tuple CalcSolutionInfo(std::vector<SolutionInfo> individuals)
 		{
 			std::vector<eureqa::solution_info> _individuals = CreateEureqaVector(individuals);
-			bool firstElement = instance.query_population(_individuals);
-			std::vector<SolutionInfo> secondElement = CreateWrappersVector(_individuals);
+			bool result = instance.query_population(_individuals);
+			std::vector<SolutionInfo> output = CreateWrappersVector(_individuals);
 
-			return boost::make_tuple(firstElement, secondElement);
+			return boost::python::make_tuple(result, output);
 		}
 
 		// Wrapper for functions returning a short description of the connection

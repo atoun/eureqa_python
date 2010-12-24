@@ -28,9 +28,6 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def(boost::python::vector_indexing_suite<std::vector<float> >())
 	;
 
-	boost::python::class_<boost::tuple<bool, std::string> >("TupleBoolString")
-	;
-
 	// SearchOptions
 	boost::python::class_<SearchOptions>("SearchOptions")
 	.def(boost::python::init<std::string>())
@@ -210,11 +207,11 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	bool (Connection::*SendIndividuals_2)(SolutionInfo) = &Connection::SendIndividuals;
 	bool (Connection::*SendIndividuals_3)(std::vector<SolutionInfo>) = &Connection::SendIndividuals;
 
-	boost::tuple<bool, SolutionInfo> (Connection::*QueryIndividuals_1)() = &Connection::QueryIndividuals;
-	boost::tuple<bool, std::vector<SolutionInfo> > (Connection::*QueryIndividuals_2)(unsigned int count) = &Connection::QueryIndividuals;
+	boost::python::tuple (Connection::*QueryIndividuals_1)() = &Connection::QueryIndividuals;
+	boost::python::tuple (Connection::*QueryIndividuals_2)(unsigned int count) = &Connection::QueryIndividuals;
 
-	boost::tuple<bool, SolutionInfo> (Connection::*CalcSolutionInfo_1)(SolutionInfo) = &Connection::CalcSolutionInfo;
-	boost::tuple<bool, std::vector<SolutionInfo> > (Connection::*CalcSolutionInfo_2)(std::vector<SolutionInfo>) = &Connection::CalcSolutionInfo;
+	boost::python::tuple (Connection::*CalcSolutionInfo_1)(SolutionInfo) = &Connection::CalcSolutionInfo;
+	boost::python::tuple (Connection::*CalcSolutionInfo_2)(std::vector<SolutionInfo>) = &Connection::CalcSolutionInfo;
 
 	bool (Connection::*Connect_1)(std::string) = &Connection::Connect;
 	bool (Connection::*Connect_2)(std::string, unsigned int) = &Connection::Connect;
@@ -230,7 +227,7 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def("connect", Connect_2)
 	.def("connect", Connect_3)
 	.def("disconnect", &Connection::Disconnect)
-	.def("send_data", &Connection::SendData)
+	.def("send_data_set", &Connection::SendDataSet)
 	.def("send_data_location", &Connection::SendDataLocation)
 	.def("send_options", &Connection::SendOptions)
 	.def("send_individuals", SendIndividuals_1)

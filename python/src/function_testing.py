@@ -6,6 +6,7 @@ Created on Nov 29, 2010
 
 import unittest
 import eureqa_python
+import os
 
 class Test(unittest.TestCase):
 
@@ -251,7 +252,9 @@ class Test(unittest.TestCase):
         
         self.assertEquals(data_set.empty(), True)
         
-        #TODO: check len(x_symbols)!    
+        #TODO: check len(x_symbols)!
+        
+        os.remove('data.txt')   
         
     def test_server_controller(self):
         eureqa_python.EureqaServerController.start_server('/home/marcin/Portable/eureqa/server/linux/eureqa_server')

@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
         # Start searching
         connection.start_search()
         
-        # Monitor the search
+        # Monitor the search (timeout = 10s)
         best_solutions = eureqa_python.SolutionFrontier()
         
         starting_time = time.time()

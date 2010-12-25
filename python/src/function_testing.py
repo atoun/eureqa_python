@@ -1,15 +1,15 @@
 '''
-Created on Oct 29, 2010
+Created on Nov 29, 2010
 
 @author: MF
 '''
+
 import unittest
 import eureqa_python
-import os
 
 class Test(unittest.TestCase):
 
-    def testServerInfo(self):
+    def test_server_info(self):
         server_info = eureqa_python.ServerInfo()
         
         server_info.is_valid()
@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         server_info.cpu_cores = 2
         self.assertEqual(server_info.cpu_cores, 2)
         
-    def testSearchProgress(self):
+    def test_search_progress(self):
         search_progress = eureqa_python.SearchProgress()
         
         search_progress.is_valid()
@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
         search_progress.total_population_size = 5
         self.assertEqual(search_progress.total_population_size, 5)
         
-    def testSolutionInfo(self):
+    def test_solution_info(self):
         solution_info = eureqa_python.SolutionInfo()
         
         solution_info = eureqa_python.SolutionInfo("text1")
@@ -94,7 +94,7 @@ class Test(unittest.TestCase):
         result_2 = solution_info_2.matches(solution_info_1)       
         self.assertEqual(result_1, result_2)
  
-    def testSearchOptions(self):
+    def test_search_options(self):
         search_options = eureqa_python.SearchOptions()
         
         search_options = eureqa_python.SearchOptions('text1')
@@ -147,7 +147,7 @@ class Test(unittest.TestCase):
         search_options.trainer_population_size = 14
         self.assertEquals(search_options.trainer_population_size, 14)
  
-    def testSolutionFrontier(self):
+    def test_solution_frontier(self):
         solution_frontier = eureqa_python.SolutionFrontier()
         
         solution_info_1 = eureqa_python.SolutionInfo()
@@ -168,8 +168,11 @@ class Test(unittest.TestCase):
         solution_info_3.fitness = 0.1
         solution_info_3.complexity = 1
         solution_info_3.age = 10
-        
+                
         self.assertTrue(solution_frontier.add(solution_info_1))
+        
+        operator_ret = solution_frontier[0]
+        self.assertEquals(operator_ret.complexity, 100)
         
         result = not (solution_info_1.dominates(solution_info_2) or solution_info_1.matches(solution_info_2))
         self.assertEquals(solution_frontier.test(solution_info_2), result)
@@ -190,7 +193,7 @@ class Test(unittest.TestCase):
         
         self.assertEquals(solution_frontier.size(), 0)
         
-    def testDataSet(self):
+    def test_data_set(self):
         data_set = eureqa_python.DataSet()
         
         self.assertEquals(data_set.is_valid(), False)
@@ -250,12 +253,11 @@ class Test(unittest.TestCase):
         
         #TODO: check len(x_symbols)!    
         
-    
-    def testServerController(self):
+    def test_server_controller(self):
         eureqa_python.EureqaServerController.start_server('/home/marcin/Portable/eureqa/server/linux/eureqa_server')
         eureqa_python.EureqaServerController.stop_server()
     
-    def testConnectionBasic(self):        
+    def test_connection_basic(self):        
         eureqa_python.EureqaServerController.start_server('/home/marcin/Portable/eureqa/server/linux/eureqa_server')
         
         connection = eureqa_python.Connection()
@@ -263,10 +265,6 @@ class Test(unittest.TestCase):
         self.assertTrue(connection.is_connected())
         eureqa_python.EureqaServerController.stop_server()
         
-        
-# TODO:
-# - exceptions during conversion       
-    
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

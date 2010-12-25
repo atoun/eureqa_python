@@ -1,5 +1,15 @@
+/*
+ *  C++ - Python Boost binding
+ *
+ *  Created on: Nov 23, 2010
+ *      Author: MF
+ */
+
+
+
 #include <boost/python.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
+#include <boost/numeric/ublas/matrix.hpp>
 
 #include "Connection.h"
 #include "DataSet.h"
@@ -23,7 +33,7 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def(boost::python::vector_indexing_suite<std::vector<int> >())
 	;
 
-	// Utility class -- std::vector<std::float>
+	// Utility class -- std::vector<float>
 	boost::python::class_<std::vector<float> >("FloatVector")
 	.def(boost::python::vector_indexing_suite<std::vector<float> >())
 	;
@@ -110,9 +120,9 @@ BOOST_PYTHON_MODULE(eureqa_python)
 	.def("test", &SolutionFrontier::Test)
 	.def("to_string", &SolutionFrontier::ToString)
 	.def("size", &SolutionFrontier::Size)
-	// TODO: operator []
 	.def("clear", &SolutionFrontier::Clear)
 	.def("remove", &SolutionFrontier::Remove)
+	.def("__getitem__", &SolutionFrontier::GetItem)
 	;
 
 	// ServerInfo

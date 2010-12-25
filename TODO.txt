@@ -1,0 +1,6 @@
+TODO list:
+
+- Create Python layer for eureqa_python (i.e. enable to operate on standard Python structures and numpy)
+- Handle Python - C++ - conversion exceptions in the mentioned layer
+- Create Windows implementation for EureqaServerController
+- Create VS project for eureqa_wrapper

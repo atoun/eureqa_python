@@ -10,6 +10,8 @@
 #define SOLUTIONFRONTIER_H_
 
 
+#include <boost/python.hpp>
+
 #include <eureqa/solution_frontier.h>
 
 
@@ -77,18 +79,10 @@ class SolutionFrontier
 
 		// Wrappers for basic container functions
 		int Size() const {return instance.size();}
-		SolutionInfo operator [] (int i) {return SolutionInfo(instance[i]);}
+		SolutionInfo GetItem (int index) {return instance[index];}
 		void Clear() {instance.clear();}
 		void Remove(int i) {instance.remove(i);}
 };
 
 
 #endif /* SOLUTIONFRONTIER_H_ */
-
-
-/**
- *
- * Eventual TODO:
- * const solution_info& operator [](int i) const { return front_[i]; }
- *
- */

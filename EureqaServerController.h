@@ -21,7 +21,6 @@
 #endif /* linux */
 
 
-
 //! Utility function converting arbitrary type to a string
 template <class T> std::string ToString(const T& value)
 {
